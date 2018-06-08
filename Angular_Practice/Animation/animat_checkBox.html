@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+ 
+ <link href="css/animations.css" rel="stylesheet" type="text/css">
+ 
+ 
+ 
+ 
+</head> 
+<body ng-app="ngAnimate">
+ <div ng-init="checked = true">
+  <label>
+   <input type="checkbox" ng-model="checked">Is visible
+  </label>
+  <div class="content-area sample-show-hide" ng-show="checked">
+    This is a container
+  </div>
+ </div> 
+ 
+</body>
+</html>
+

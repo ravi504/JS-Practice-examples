@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+ <script src="js/animate_swap_concept.js"></script>
+ <link href="css/animate_swap_concept.css" rel="stylesheet" type="text/css">
+ 
+ 
+ 
+ 
+</head> 
+<body ng-app="main_module">
+ 
+ <div class="container" ng-controller="animate_controller">
+	<div ng-animate-swap="number" class="cell swap-animation" ng-class="colorClass(number)">
+	 {{number}}
+	</div>
+ </div>
+  
+ 
+ 
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+ <style>
+ .view-class{width:600px;height:100px;border:1px solid grey;}
+ </style>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="https://code.angularjs.org/snapshot/angular-route.js"></script>
+ <script src="js/ngView_concept.js"></script>
+ <!-- <link href="html/book.html" />
+ <link href="html/chapter.html" /> -->
+ 
+</head> 
+<body ng-app="main_module">
+  <div ng-controller="main_controller as main">
+   Choose:
+   <a href="#/book/jack">jack</a>|
+   <a href="book/jack/ch/1">jack:ch 1</a>|
+   <a href="book/Adam">Adam</a>|
+   <a href="book/Adam/ch/2?key=value">Adam:ch 2</a>|
+   <a href="book/pam">Pam</a>
+   
+   <div class="view-class">
+    <div ng-view class="view-cls"></div>
+   </div>
+   <hr/>
+   
+   <pre>$location.path() = {{main.$location.path()}}</pre>
+   <pre>$route.current.templateUrl = {{main.$route.current.templateUrl}}</pre>
+   <pre>$route.current.params = {{main.$route.current.params}}</pre>
+   <pre>$routeParams = {{main.$routeParams}}</pre>
+  </div>
+</body>
+</html>

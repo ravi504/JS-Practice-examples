@@ -1,0 +1,21 @@
+.repeat-name{color:blue;}
+
+.repeat-name.ng-enter,
+.repeat-name.ng-move{
+	transition : all 0.5s linear;
+	opacity : 0;
+}
+
+.repeat-name.ng-enter.ng-enter-active,
+.repeat-name.ng-move.ng-move-active{
+	opacity : 1;
+}
+
+.repeat-name.ng-leave{
+	animation : 0.5s my_animate;
+} 
+
+@keyframes my_animate{
+	from{opacity : 1;}
+	to{opacity : 0}
+}

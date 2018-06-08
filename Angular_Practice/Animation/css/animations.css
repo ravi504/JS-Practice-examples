@@ -1,0 +1,3 @@
+.content-area{border:1px solid grey;padding:15px;margin-top:2px;}
+ .sample-show-hide{transition:all linear 0.5s;}
+ .sample-show-hide.ng-hide{opacity:0;}

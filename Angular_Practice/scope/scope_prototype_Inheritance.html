@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+ <style>
+  .show-scope-demo.ng-scope,
+  .show-scope-demo .ng-scope{border:1px solid grey;margin:3px;}
+ </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="js/scope_prototype_Inheritance.js"></script>
+ 
+</head> 
+<body ng-app="main_module">
+ <div class="show-scope-demo">
+  <div ng-controller="msg_controller">
+   {{msg}}
+  </div>
+  
+  <div ng-controller="list_controller">
+   <ol>
+    <!-- {{department}} value is taken from prototypically inherited from rootScope. -->
+    <li ng-repeat="nam in names">{{nam}} is working as a {{department}} developer</li>
+   </ol>
+  </div>
+ </div>
+ 
+</body>
+</html>

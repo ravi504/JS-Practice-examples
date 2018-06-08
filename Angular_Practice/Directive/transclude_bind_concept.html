@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+ <link href="html/translude_data.html">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="js/transclude_bind_concept.js"></script>
+ 
+ 
+</head> 
+<body ng-app="main_module">
+  <div ng-controller="main_controller">
+  
+   {{message}} <!-- the value of message is taken form directive with the help of transclude. -->
+   
+   <my-dialog ng-hide="hideDialog" on-close="hideDialog_Msg(message)">
+    Change the content of {{name}}
+   </my-dialog>
+   
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+ <script src="js/form_animate.js"></script>
+ <link href="css/form_animate.css" rel="stylesheet" type="text/css">
+ 
+ 
+ 
+ 
+</head> 
+<body ng-app="main_module">
+ 
+ 
+  <form name="myForm" ng-controller="main_controller" class="my_form">
+   User: <input type="text" name="input" ng-model="form_value" required>
+   <span ng-show="myForm.input.$error.required">Required !</span><br>
+   
+   <code>
+   Form_value = {{form_value}}<br>
+   Input valid = {{myForm.input.$valid}}<br>
+   Input Error = {{myForm.input.$error}}<br>
+   Form valid = {{myForm.$valid}}<br>
+   Form error required = {{!!myForm.$error.required}}
+   </code>
+   
+  </form>
+ 
+ 
+</body>
+</html>
+

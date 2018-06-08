@@ -1,0 +1,37 @@
+.container{
+	width:150px;
+	height:150px;
+	border:1px solid grey;
+	position:relative;
+	overflow:hidden;
+}
+.container .cell{
+	position:absolute;
+	font-size:75px;
+	line-height:150px;
+	border-bottom:1px solid grey;
+	color:grey;
+	top:0px;
+	left:0px;
+	right:0px;
+	text-align:center;
+}
+.swap-animation.ng-enter,
+.swap-animation.ng-leave{
+	transition:0.5s all linear;
+}
+.swap-animation.ng-enter{
+	top:-150px;
+}
+.swap-animation.ng-enter-active{
+	top:0px;
+}
+.swap-animation.ng-leave{
+	top:0px;
+}
+.swap-animation.ng-leave-active{
+	top:150px;
+}
+.red{background:lightgrey;}
+.green{background:lightpink;}
+.yellow{background:lightgreen;}
