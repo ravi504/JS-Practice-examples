@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <title>Bootstrap 4</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=divice-width, intial-scale=1">
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/container_concept.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+ </head>
+<body>
+<div class="container">
+ <div class="card" style="width:200px;">
+  <img src="image/avatar2.png" class="card-img-top" alt="card-image">
+  
+  <div class="card-body">
+   <h4 class="card-title">Jack willson</h4>
+   <p class="card-text">this is Jack</p>
+   <a href="#" class="btn btn-info" data-toggle="collapse" data-target="#di_v">See Profile</a>
+  </div>
+ </div>
+</div>
+<div class="container">
+<div id="di_v" class="collapse">
+ <p class="">Jack is working as a Web Developer. He is expert in programming languages such as [HTML,CSS,JQUERY]. He also well known as MVC 
+ patten framework such as [ANGULARJS,BOOTSTRAP].</p>
+ 
+ <div id="accordin">
+  
+  <div class="card">
+   <div class="card-header">
+    <a class="card-link" data-toggle="collapse" href="#collapse_1">Qualifications</a>
+   </div>
+   <div id="collapse_1" class="collapse" data-parent="#accordin">
+    <div class="card-body">
+	 <p>Graduate in computer science.</p>
+	 <p>Diploma in Progremming.</p>
+	</div>
+   </div>
+  </div>
+  
+  <div class="card">
+   <div class="card-header">
+    <a class="card-link" data-toggle="collapse" href="#collapse_2">Projects</a>
+   </div>
+   <div id="collapse_2" class="collapse" data-parent="#accordin">
+    <div class="card-body">
+	<p>Leave Tracking System.</p>
+	<p>Healp desk tool.</p>
+	<p>User authantications.</p>
+	</div>
+   </div>
+  </div>
+  
+  <div class="card">
+   <div class="card-header">
+    <a class="card-link" data-toggle="collapse" href="#collapse_3">Personal Details</a>
+   </div>
+   <div id="collapse_3" class="collapse" data-parent="#accordin">
+    <div class="card-body">
+	 <p>Name : Jack willson</p>
+	 <p>place : Germany</p>
+	 <p>Email : Jack_willson@123.com</p>
+	 <p>Mobil : 223-225-212</p>
+	</div>
+   </div>
+  </div>
+  
+ </div>
+</div>
+</div>
+</body>
+</html>

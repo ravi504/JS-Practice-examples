@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+ <script src="js/input_data.js"></script>
+ 
+</head>
+<body>
+ <nav class="navbar bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">Input_data</a>
+ </nav>
+ 
+ 
+ <div class="container con_1">
+  <form class="need-validation" novalidate>
+  
+    <div class="form-row">
+	   <div class="col-md-6">
+		<input type="text" class="form-control" id="validatio1" name="user" placeholder="User name" required>
+		<small>Your user name please..</small>
+		<div class="invalid-feedback">User name</div>
+	   </div>
+	   
+	   <div class="col-md-6">
+		<input type="text" class="form-control"  id="validatio2" user="pass" placeholder="password" required>
+		<small>Your password plase.</small>
+		<div class="invalid-feedback">Password plase</div>
+	   </div>
+	  </div>
+	  <button class="btn btn-info" type="submit">Login</button>
+  </form>
+ </div>  
+</body>
+</html>
+
+
+

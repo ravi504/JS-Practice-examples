@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <title>Bootstrap 4</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=divice-width, intial-scale=1">
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/container_concept.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+ </head>
+<body>
+<div class="container-fluid">
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark ">
+ <a class="navbar-brand" href="container_concept.html">Logo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_collapse">
+   <span class="navbar-toggler-icon"></span>
+  </button>
+  <div id="nav_collapse" class="collapse navbar-collapse">
+	 <ul class="navbar-nav nav">
+	  <li class="nav-item">
+	   <a class="nav-link active" data-toggle="tab" class="dissmis" href="#home">Home</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" data-toggle="tab" href="#about">About</a>
+	  </li>
+	  <li class="nav-item">
+	   <a class="nav-link" data-toggle="tab" href="#gallery">Gallery</a>
+	  </li>
+	 </ul>
+ </div>
+ </nav>
+ <div class="container">
+ <div class="tab-content">
+  <div id="home" class="tab-pane container active">
+   <div class="jumbotron home">
+    <div class="container">
+		<p>This is a Home page.</p>
+    </div>
+   </div>
+  </div>
+  <div id="about" class="tab-pane container fade">
+   <p>this is a About page</p>
+  </div>
+  <div id="gallery" class="tab-pane container fade">
+   <p>this is a Gallery page.</p>
+  </div>
+ </div>
+ </div>
+ <nav class="navbar navbar-expand-xl bg-dark navbar-dark fixed-bottom">
+  <ul class="nav">
+   <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+   <li class="nav-item"><a class="nav-link" href="#">Location</a></li>
+   <li class="nav-item"><a class="nav-link" href="#">NearBy</a></li>
+  </ul>
+ </nav>
+</div>
+</body>
+</html>

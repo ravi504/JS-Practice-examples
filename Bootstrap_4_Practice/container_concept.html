@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <title>Bootstrap 4</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=divice-width, intial-scale=1">
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/container_concept.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+ </head>
+<body>
+<div class="container">
+
+ <ul class="breadcrumb">
+   <li class="breadcrumb-item"><a href="gallery_page.html">Gallery</a></li>
+   <li class="breadcrumb-item"><a href="tabs_concept.html">About</a></li>
+   <li class="breadcrumb-item"><a href="profile_pic.html">Photos</a></li>
+   <li class="breadcrumb-item"><a href="#">Contact</a></li>
+   <li>
+    <div class="dropdown dro_p">
+	 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Login</button>
+	  <div class="dropdown-menu">
+	   <a class="dropdown-item" href="#">FaceBook</a>
+	   <a class="dropdown-item" href="#">Twiter</a>
+	   <a class="dropdown-item" href="#">Gmail</a>
+	   <a class="dropdown-item-text" target="_blank" href="https://google.co.in">Google</a>
+	  </div>
+	</div>
+   </li>
+ </ul>
+  
+
+ <div class="jumbotron">
+  
+	 <div class="container">
+	  <h3>Container head</h3>
+	  <p>this is a container head</p>
+	 </div>
+	 <div class="container-fluid">
+	  <h3>Container-fluid head</h3>
+	  <p>this is a container-fluid head</p>
+	 </div>
+ </div>
+</div> 
+ <hr>
+ <!-- grid system have 5 classes: -->
+ <!-- .col- [extra small device. screen width less then 576px] -->
+ <!-- .col-sm- [small device. screen width equal to or grater then 576px] -->
+ <!-- .col-md- [medium device. screen width equal to or grater than 768px] -->
+ <!-- .col-lg- [large device. screen width equal to or greater than 992px] -->
+ <!-- .col-xl- [xlarge device. screen width equal to or greater than 1200px] -->
+ 
+ <h1 class="display-4">Grid <small>concept..</small></h1>
+ <div class="container">
+  <div class="row"> 
+   <div class="col-sm-3 co_l">col-sm-3</div>
+   <div class="col-sm-3 co_l">col-sm-3</div>
+   <div class="col-sm-6 co_l">col-sm-6</div>
+  </div>
+ </div>
+ 
+ <div class="container">
+  <div class="row"> 
+   <div class="col-sm-4 co_l">col-sm-4</div>
+   <div class="col-sm-8 co_l">col-sm-8</div>
+  </div>
+ </div>
+ <hr>
+ <div class="container">
+ <h4>blockquote <small>concept</small></h4>
+ <blockquote class="blockquote">
+  <p> this is a Bootstrap 4 Examples.</p>
+  <footer class="blockquote-footer">By RsR..</footer>
+ </blockquote>
+ </div>
+ <hr>
+ <div class="container">
+ <h4>Data <small>list concept</small></h4>
+ <dl>
+  <dt>Name</dt>
+  <dd>Jack-willson</dd>
+  <dd>Adm crook</dd>
+  <dd>Raj niwas <kbd>Captain</kbd></dd>
+ </dl>
+ </div>
+ <hr>
+ <div class="container">
+ <h4>table <small>concept</small></h4>
+  <div class="table-responsive-sm">
+   <table class="table table-warning table-hover table-bordered tabl_e">
+    <thead class="t_head">
+	 <tr>
+	 <th>Name</th>
+	 <th>Place</th>
+	 <th>Code</th>
+	 <th>Example</th>
+     <th>Example</th>
+     <th>Example</th>
+     <th>Example</th>
+	 </tr>
+	</thead>
+	<tbody>
+	<tr class="">
+	<td>Jack</td>
+	<td>UK</td>
+	<td>025</td>
+	<td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+	</tr>
+	<tr class="table-info">
+	<td>Adm</td>
+	<td>CAN</td>
+	<td>026</td>
+	<td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+	</tr>
+	<tr class="">
+	<td>Raj</td>
+	<td>IND</td>
+	<td>027</td>
+	<td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+	</tr>
+	</tbody>
+   </table>
+  </div>
+ </div>
+ <hr>
+ <div class="container">
+  <ul class="pagination">
+   <li class="page-item"><a href="#" class="page-link">Previous</a></li>
+   <li class="page-item active"><a href="#" class="page-link">1</a></li>
+   <li class="page-item"><a href="#" class="page-link">2</a></li>
+   <li class="page-item"><a href="#" class="page-link">3</a></li>
+   <li class="page-item"><a href="#" class="page-link">Next</a></li>
+  </ul>
+ </div>
+</body>
+</html>
