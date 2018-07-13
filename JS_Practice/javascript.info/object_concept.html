@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+
+<script>
+ // object literal.
+  var fruit = {
+	name:'apple'
+ }
+  document.write("object litral :" + fruit.name + "<br>");
+ 
+ //square bracket [] 
+ 
+ var fruit = {};
+  fruit['name'] = 'mango';
+ document.write(" squar bracket[] :" +fruit.name + "<br>");
+ 
+ //*************************************************************
+ 
+ //var fruit = prompt("how many fruit","apple");
+ 
+ var fru_val = {
+  [fruit] : 5
+ }
+ //alert(fru_val.apple);
+ 
+ //***************************************************************
+ var fruit = {
+  name:'apple',
+  price:20, color:'red'
+ }
+ document.write(fruit.color + "<br>");
+ 
+ //**************************************************************************
+ var peop = {
+  name: 'jack'
+ }
+ //var key = prompt('your name', 'name');
+ 
+ //alert(peop[key]);
+ //***********************************************************
+ //in or for in
+ 
+ var user = {place : "ak", name : "jack"}// order in define position
+ var tel = {"45":"ger","30":"jap","1":"ind"}//In numners key is return the key value in accending order as (1,30,45)
+ var tell = {"+45":"ger","+30":"jap","+1":"ind"}//to add + sign in number key to convert non-integer then reteun the key value is define as(45,30,1).
+ 
+ //alert("place" in user);
+ for(let nam in tell){
+  document.write("add + sign "+nam + "<br>");
+ }
+ 
+ //*******************************************************
+ //integer properties Math.trunc() method to remove the decimal point.
+ document.write("Math.tran() "+String("4.9")+"<br>");//It will print 4.9
+ document.write("Math.tran() "+String(Math.trunc("4.9"))+"<br>");//it will print 4
+ 
+ //Object reference
+ var test = {name : "jack"}
+ var test1 = test;//object reference
+ test1.name = "jack willson"
+ document.write("By reference :"+test.name + "<br>"); //it will print jack willson 
+ 
+ let a = {}; //Indepandant object
+ let b = a;//object reference
+ let c = {};//Indepandant object
+ document.write( a == b );//it will print true
+ document.write( "<br>");
+ document.write( a == c ); // it will print false
+ document.write( "<br>");
+ 
+//********************************************************************
+//const object can be changed
+
+ const peop1 = {name : "jack"};
+ //peop1 = {name : "jack"}; // it will print TypeError: Assignment to constant variable.
+ peop1.age = 25;
+ peop1.name = "jimmy";
+ document.write(" const object :" + peop1.age + "<br>"); //it will print 25 
+  //**********************************************************
+  //cloning the object
+  
+  var user = {name : "jack"}
+  
+  var clone = {};//enpty object
+  
+  for(let use in user){//object reference using in opreter
+   clone[use] = user[use];
+  }
+  document.write(clone.name + "<br>");//it will print jack
+  //**************************************************************
+  //Object.assign method for deep cloning or real copy/cloning the object
+  
+  var user = {name: "jack"};
+  var user1 = {place : "UK"};
+  var user2 = {lang : "EN"};
+  
+  Object.assign(user,user1,user2);//it will mearge all object in user as argumrnt 2 to 1 and then user first one.
+  //Object.assign(user,{name:'willson',place:"DNK",lang:"FRN"});//overwrite the object 
+  document.write(user.name + " live in " + user.place + " speaking in " + user.lang + " language" +"<br>");
+  
+  var obj = {
+   name: "jack",
+   sal : {salary :2500}
+  }
+  
+  var clone = Object.assign({},obj);//deep cloning..
+  obj.sal.salary + 200;
+  document.write(clone.sal.salary + "<br>");
+  
+  //***************************************************************
+  //task 
+  var user = {}
+   name = "john",
+   surname = "smith"
+   user.name = "Pete";
+  delete user.name;
+  
+  //Write the function isEmpty(obj) which returns true if the object has no properties, false otherwise.
+  
+  function isEmpty(obj){
+   for(let val in obj){
+    return false;
+   }
+    return true;
+  }
+  //Create a function multiplyNumeric(obj) that multiplies all numeric properties of obj by 2.
+  
+  function multiplyNumeric(obj){
+   
+   obj.width *= 2;
+   obj.height *= 2;
+   document.write(obj.width + "<br>");
+   document.write(obj.height + "<br>");
+   document.write(obj.title + "<br>");
+   
+   <!-- for(var key in obj){ -->
+    <!-- if (typeof(obj[key] == "number")){ -->
+	 <!-- obj[key] *= 2; -->
+	 <!-- } -->
+   <!-- } -->
+  }
+  var objj = {
+   width : 200,
+   height : 300,
+   title : "My menu"
+  }
+  multiplyNumeric(Object.assign({},objj));
+  
+  //****************************************************
+  
+  var oob = 12;
+  delete oob;
+  document.write(oob);
+  
+  //****************************************************************
+  //this concept.
+  var fun = {
+   name:"jack",
+   hi(){alert(this.name);},
+   bey(){alert("bey");}
+   };
+   //fun.hi();
+   //(fun.name == "jack" ? fun.hi : fun.bey)();//Uncaught TypeError: Cannot read property 'name' of undefined
+   //var fun1 = fun.hi();
+   //(fun.bey)();
+   
+   function fun1(){
+    return{
+	 name:"jack",
+	 hi(){return this;}
+	};
+   };
+ var funn = fun1();
+ //alert(funn.hi().name); 
+ //call chainable
+ 
+ var per ={
+	count : 0,
+	up(){
+	 this.count++;
+	 return this;
+	},
+	down(){
+	 this.count--;
+	 return this;
+	},
+	result(){
+	 alert(this.count);
+	 return this;
+	}
+ }
+ //per.up().down().up().up().result();//it return 2
+  
+  //fat arrow fun
+  
+  var obj = {
+   firstname:"jack",
+   prin(){
+    <!-- var arrow = function(){ -->
+	<!-- alert(this.firstname); -->
+	<!-- } -->
+	var arrow = () =>{alert(this.firstname)}//fat = () => arrow function go for outer this reference
+	arrow();
+   },
+  };
+  //obj.prin();
+  //************************************************
+  //object to primitive conversion automatically by built in function.
+  //1. object[Symbol.toPrimitive]
+  
+  var obj3 = {
+   name:"jack willson",
+   amount:1000,
+   [Symbol.toPrimitive](hint){
+    alert(`hint: ${hint}`);
+    return hint == "string" ? `{name: "${this.name}"}` : this.amount;
+   }
+  }
+  //alert(obj3); // it return hint : string name: jack willson
+  //alert(+obj3);it return hint : number 1000
+  //alert(obj3+500);it return hint : default 1500
+  
+  //*****************************************************************
+  //2.toString and valueOf
+  
+  var obj4 = {
+   name:"adam",
+   amount:2000,
+   toString(){
+    return `{name: "${this.name}"}`;
+   },
+   valueOf(){
+    return this.amount;
+   }
+  }
+  
+  //alert(obj4);
+  //************************************************
+  //primitive to toNumber conversion by toString()
+  
+  var numobj = {
+   toString(){
+    return "2";
+   }
+  }
+  
+  //alert(numobj * 2);//return 4 because toPrimitive return "2", then it will 2 ;
+  //alert(numobj + 2);//return 22 because toPrimitive return string so concatination (+ binary plus);
+  
+  var numobj1 = {
+   toString(){
+    return true;
+   }
+  }
+  //alert(numobj1 + 2);//it will return 3 because toPrimitive return boolean true.
+  //******************************************************************************************
+  //construction function to creat object
+
+ function Mfun(name){
+  this.name = name;
+  this.dis=function(){
+   return "hello " + this.name; 
+  }
+ }  
+  var mobj = new Mfun("jack");
+  //alert(mobj.dis());
+ /*
+  Here is the object created by construnction function.
+  var mobj = {
+   name : "jack",
+   dis(){
+    return "hello" + this.name;
+   }
+  }
+ */ 
+ //***********************************************
+ //function without new 
+ function newfun(){
+  alert(new.target)
+ }
+  //newfun();//return undefine
+  //new newfun();//retrun the all function
+  
+  function newfunn(name){
+   if(!new.target){
+    return new newfunn(name);
+   }
+   this.name = name;
+  }
+  
+  var newfu = newfunn("anndey");
+  //alert(newfu.name);
+  //*********************************************
+  //return in cunstructor. There is no return statement in construction function. We have only used return with an object,
+  //then it is return instead of 'this'.
+  function Return_fun(){
+   this.name = "pamila";
+   return{
+    name : "Liman"
+   }
+  }  
+  //alert(new Return_fun().name);//it will return Liman instead of pamila.
+  
+  function Return_fun1(){
+   this.name = "Jack";
+   return;//Here finish the execution 
+   this.place = "UK";
+  }
+  //alert(new Return_fun1().place);// It will return undefine, due to return statement after this.name.
+  
+  //***********************************************************************************
+  //Is it possible to create functions A and B such as new A()==new B()?
+  //yes when the function is return an object, then new return instead of 'this'.
+  var obj1 = {};
+  
+  function A(){return obj1};
+  function B(){return obj1};
+  
+  //alert(new A() == new B());//It will return true
+  //Create a constructor function Calculator that creates objects with 3 methods:
+  
+  function calculator(){
+   this.read = function(){
+    this.a = +prompt("first value of a",0);
+    this.b = +prompt("first value of b",0);
+   };
+   this.sum = function(){
+    return this.a + this.b;
+   };
+   this.mul = function(){
+    return this.a * this.b;
+   };
+  }
+  
+  <!-- var cal = new calculator(); -->
+  <!-- cal.read(); -->
+  <!-- alert(cal.sum()); -->
+  
+  /* same as above example in object wise
+   cal = {
+   read(){
+    this.a = +prompt("first val",0);
+    this.b = +prompt("first val",0);
+	
+	},
+	sum(){
+    return this.a + this.b;
+   }
+   }
+   
+  //alert(cal.read());
+  alert(cal.sum());
+  */
+  //Create a constructor function Accumulator(value).
+  function Accumulator(value){
+   this.value = value;
+   
+   this.read = function(){
+   this.value += +prompt("Value od a", 0); 
+   
+   }
+  }
+  <!-- var acc = new Accumulator(1); -->
+  <!-- acc.read(); -->
+  <!-- acc.read(); -->
+  <!-- alert(acc.value); -->
+  
+  //*********************************************************************
+  //Create a constructor function Calculator that creates “extendable” calculator objects.
+  // 1). First, implement the method calculate(str) that takes a string like "1 + 2" in the 
+  //format “NUMBER operator NUMBER” (space-delimited) and returns the result. Should understand plus + and minus -.
+  
+  // 2).Then add the method addOperator(name, func) that teaches the calculator a new operation.
+ // It takes the operator name and the two-argument function func(a,b) that implements it. 
+ 
+  function Calculator(){
+   //this.name = "sssd";
+   this.calculator = function(str){
+    str.split(" ");
+	var a = str[0];
+	var op = str[1];
+	var b = str[2];
+    return eval(str);
+   };
+   /*this.addOperator = function(){
+    var math_it_up = {
+    '+': function (x, y) { return x + y },
+    '-': function (x, y) { return x - y }
+}​​​​​​​;
+
+math_it_up['+'](1, 2) == 3;
+	return op;
+   }*/
+    
+   };
+   
+  
+  
+  
+  var cal = new Calculator();
+  alert(cal.calculator("2+3"));
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </script>
+</body>
+</html>

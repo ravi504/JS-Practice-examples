@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<title>String datatype</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"String Data Concept" + "</i>" + "<br>");
+ 
+ //Three types of quotes
+ document.write("Double qoute" + "<br>");//Double Quote
+ document.write('Single qoute' + "<br>");//Single Quote
+ document.write(`Players:
+                 *Messi,
+				 *Cristiano Ronaldo 
+				 *Fernado Touross` + "<br>");//Backticks Quote
+				 
+//Speacial characters
+ //alert("Welcome Jack \n how are you ? \n I am Fine ! \n what about you Bro !");//newline to use \n				 
+ document.write("\u00A9" + "<br>");//unicode symbols. special characters start with backslash \, which is also called as "escape character"
+ document.write("\\ Hellooo ! \\" + "<br>");// Single slash will occur an error. So double slash is use. But it will print single slash \
+ 
+ //*******************************************************************************
+ //String length
+ 
+ document.write("Double qoute".length + "<br>");//It will print 12.
+ 
+ //********************************************************************************
+ //Accessing the character. charAt();
+ 
+ document.write("Double qoute".charAt(0) + "<br>");//It will return D.
+ var str = "Welcome";
+ document.write(str.charAt(3) + "<br>");//It will return c.
+ document.write((str[str.length - 1]) + "<br>");//It will return e.
+ 
+ document.write(str[12] + "<br>");//It will return undefine
+ document.write("\\" + str.charAt(12) + "\\" + "<br>");//It will return empty string.
+ 
+ //******************************************************************************
+ //String are immutable. Not changed.
+ var nam = "ab";
+ nam[0] = "A";
+ var nam1 = "A" + nam[1];
+ document.write(nam[0] + "<br>");//It will print a
+ document.write(nam1 + "<br>");//It will print Ab
+ 
+ //******************************************************************************
+ //changing the case
+ var strr = "jack";
+ var strrr = "JACK WILSONE";
+ document.write(strr.toUpperCase() + "<br>");
+ document.write(strrr.toLowerCase() + "<br>");
+ 
+ //*********************************************************************************
+ //Searching for a sub string.
+ // 1). indexOf();
+ 
+ var nam = "this is a test line is !";
+ 
+ document.write(nam.indexOf('is') + "<br>");//It will return pos no 2.
+ document.write(nam.indexOf('is', 4) + "<br>");//It will return pos no 5.
+ document.write(nam.indexOf('is', 6) + "<br>");//It will return pos no 20.
+ document.write(nam.indexOf('jack') + "<br>");//It will return -1, if no searching value is found in given string.
+ 
+ var sents = "I cook tea I play ft I also like music";
+ var pos = 0;
+ var posval;
+ while(true){
+  posval = sents.indexOf('I', pos);
+  if(posval == -1) break;
+  document.write("I pos :" + posval + "<br>");//It will print {I pos 0, I pos 11, I pos 21}
+  pos = posval+1;
+ } 
+ 
+  document.write("**************************" + "<br>");
+ // also we can write like this.
+ 
+ var sents1 = "I cook tea I play ft I also like music";
+ var poss = -1;
+ var val = "I";
+ while((poss = sents1.indexOf(val, poss +1)) != -1){
+  document.write("I poss :" + poss + "<br>")//It will print {I pos 0, I pos 11, I pos 21}
+ }
+ 
+ //indexOf is tested in if condition.
+ var str = "this is a string";
+ 
+ if(str.indexOf("this")){
+  document.write("found" + "<br>");//It does't work because in if statement 0 is false. In this case it will return pos 0.
+ }
+ 
+ if(str.indexOf("this") != -1){
+  document.write("Found" + "<br>");// Now it's work and retutn "Found".
+ }else{
+  document.write("Not Found");
+ }
+ 
+ // or we can use bitwise NOT tick ~
+ 
+ if(~str.indexOf("this")){
+  document.write("found by bitwise NOT tick ~" + "<br>");//It's work. in bitwise NOT tick ~ = -(n+1). In this case -(0+1) = -1;
+ }
+ 
+ //********************************************************************
+ /* 2). includes(string, pos) : It will return true and false 
+        startsWith : It will true if the result is found in begging part.
+ 		endsWith : It will true if the result is found in end part.
+ */
+ 
+ var strr = "Hello how are you ?";
+ 
+ document.write(strr.includes("how") + "<br>"); // It will return true. Otherwise false.
+ 
+ document.write(strr.includes("how", 9) + "<br>"); // It will return flase. 
+ 
+ document.write(strr.startsWith("He") + "<br>"); // It will return true. Otherwise false.
+ 
+ document.write(strr.endsWith("?") + "<br>"); // It will return true. Otherwise false.
+ 
+ //*********************************************************************
+ //Getting a sub string.
+ // 1).slice(start, end)
+ 
+ var strin = "Hello Bro";
+ var strinn = "HelloBro";
+ 
+ document.write(strin.slice(1,7) + "<br>");//It will print "ello B" . here end position is not included.
+ 
+ document.write(strin.slice(1) + "<br>");//It will print "ello Bro" . if we not mention end position, it will return till end.
+ 
+ // 2).substring(start,end)
+ 
+ document.write(strinn.substring(0,5) + "<br>");//It will print "Hello" . here end position is not included. 
+ //Both slice and substring are same, the only diff is slice is accepted negative numbers instead of substring.
+ 
+ // 3). substr(start, length)
+ document.write(strinn.substr(5,3) + "<br>");//It will return Bro.
+ 
+ document.write(strin.substr(-9,5) + "<br>");//It will return Hello. here starting number is not included. it will start after -9.
+ 
+ //**********************************************************************
+ //Comparing string.
+ 
+ document.write(('a' > 'Z') + "<br>");//It will return true because character code of 'a' > code 'Z'.
+ document.write(('Öpple' > 'zeebra') + "<br>");//It will return true because character code of 'Ö'(diacetric mark) > code 'zeebra'.
+ 
+ //Two methods are to get characrter code.
+ // 1). str.codePointAt(pos)
+  document.write('a'.codePointAt(0) + "<br>");//retur 97
+  document.write('Z'.codePointAt(0) + "<br>");//retur 90
+  
+  // That's why 'a'(97) > 'Z'(90).
+
+ //2). string.fromCodePoint();
+
+ document.write(String.fromCodePoint(90) + "<br>"); // It will retrun capatal 'Z'.
+ document.write(String.fromCodePoint(97) + "<br>"); // It will retrun small 'a'.
+ 
+//**************************************************************************************
+//Write a function ucFirst(str) that returns the string str with the uppercased first character, for instance:
+ function ucFirst(str){
+  var pos = str.charAt(0);
+  var up = pos.toUpperCase() + str.slice(1);
+  return up;
+ } 
+ document.write(ucFirst('pam') + "<br>");
+ 
+ //********************************************
+ 
+ function ucFirstt(str){
+  var st = str[0].toUpperCase() + str.slice(1);
+  return st;
+ }
+ document.write(ucFirstt("adam") + "<br>");//if the str is empty then str[0] occur an error *Cannot read property 'toUpperCase' of undefined*
+ 
+ //********to fix this **********
+ 
+ function uc_first(str){
+  if(!str){
+   document.write("strig is Empty");
+  return str;
+  }
+  var st = str[0].toUpperCase() + str.slice(1);
+  return st;
+ }
+ document.write(uc_first("") + "<br>");
+ 
+ //***************************************************
+ //Write a function checkSpam(str) that returns true if str contains ‘gun’ or ‘XXX’, otherwise `false.
+ 
+ function checkSpam(str){
+ var strr = str.toLowerCase();
+ var text, tx, res_val, start_key, end_key, nam, warn_key
+ var res = ['gun', 'xxx', 'ccc'];
+   
+  for(var i =0; i < res.length; i++){
+   res_val = res[i];
+   text = str.indexOf(res[i]);
+    if(text != -1){
+	 tx =  text;
+	 break;
+	}else{continue;}
+   }
+   
+ start_key = tx;
+ end_key = str.indexOf(' ', start_key);//11
+ nam = str.substring(start_key, end_key); 
+ warn_key = strr.includes(res_val);
+ 
+ if(warn_key == true){
+  document.write('Sorry this word ('+ nam + ') not allowed' + "<br>");
+ }else{
+  document.write(strr);
+ }
+ }
+ checkSpam("Hello how xxx are you" + "<br>");
+ 
+ //******************************************************
+ //Create a function truncate(str, maxlength) that checks the length of the str and, if it exceeds maxlength – 
+ //replaces the end of str with the ellipsis character "…", to make its length equal to maxlength.
+  
+  function truncate(str, maxlen){
+   var str_len = str.length;
+   var new_str = str.substring(0,maxlen) + "...";
+    if(str_len >= maxlen ){
+	 document.write(new_str + "<br>");
+	}else{
+	 document.write(str + "<br>");
+	}
+  }
+ truncate("This is a boy", 12);
+ 
+ //******************************************************
+ //We have a cost in the form "$120". That is: the dollar sign goes first, and then the number.
+ //Create a function extractCurrencyValue(str) that would extract the numeric value from such string and return it.
+ 
+ function extratCurrVal(str){
+  //var val = parseInt(str);
+  var str_pos = str.indexOf('$');
+  var str_val = str.slice(str_pos + 1);
+   document.write(str_val + "<br>");
+ }
+ extratCurrVal('$113');//It will print 113
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>

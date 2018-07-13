@@ -6,6 +6,7 @@
  
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+ <link rel="stylesheet" href="css/input_data.css">
  <script src="js/input_data.js"></script>
  
 </head>
@@ -20,18 +21,18 @@
   
     <div class="form-row">
 	   <div class="col-md-6">
-		<input type="text" class="form-control" id="validatio1" name="user" placeholder="User name" required>
+		<input type="text" class="form-control" id="validation1" name="user" placeholder="User name" required>
 		<small>Your user name please..</small>
 		<div class="invalid-feedback">User name</div>
 	   </div>
 	   
 	   <div class="col-md-6">
-		<input type="text" class="form-control"  id="validatio2" user="pass" placeholder="password" required>
+		<input type="text" class="form-control"  id="validation2" name="pass" placeholder="password" required>
 		<small>Your password plase.</small>
 		<div class="invalid-feedback">Password plase</div>
 	   </div>
 	  </div>
-	  <button class="btn btn-info" type="submit">Login</button>
+	  <button class="btn btn-info" type="submit" on-click="data()">Login</button>
   </form>
  </div>  
 </body>

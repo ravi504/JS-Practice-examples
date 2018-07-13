@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<title>Numbers datatype</title>
+<head>
+</head>
+<body>
+
+<script>
+//Numbers datatype.
+//********************************
+ var one_billion = 100000000;
+  document.write('one_Billion 1e9:-------------- ' +1e9 + "<br>");//We can write the shoter number as 1e9 .. return one_Billion:------- 1000000000
+  
+//*********************************
+
+//number.toString(base);
+ var num = 255;
+ document.write("num.toString(2) :-------" +num.toString(2)+ "<br>"); //It will return 11111111
+ document.write("num.toString(16) :-------" +num.toString(16)+ "<br>"); //It will return ff
+ document.write("num.toString(36) :-------" +num.toString(36)+ "<br>"); //It will return 73
+ 
+//Long numaric in shoter form 
+//document.write("1234567.toString(36) :-------" +1234567.toString(36)+ "<br>");//occur an error (Invalid or unexpected token) due to single .(dot)
+ document.write("123456..toString(36) :-------" + 123456..toString(36) + "<br>");//It will return 2n9c
+  
+ var mobil = 9990666222; 
+ document.write("mobil.toString(36) :-------" + mobil.toString(36) + "<br>")
+ 
+ //***********************************
+ 
+//rounding numbers
+//Math.floor()---round the number in downword.
+//Math.ceil()---round the number in upword.
+//Math.round()---round the number in nearest integer.
+//Math.trunc()---remove annything after.(dot)
+ 
+ document.write("Math.floor(2.6) :-------" + Math.floor(2.6) + "<br>")//It will return 2
+ document.write("Math.floor(-2.6) :-------" + Math.floor(-2.6) + "<br>")//It will return -3
+ 
+ document.write("Math.ceil(2.6) :-------" + Math.ceil(2.6) + "<br>")//It will return 3
+ document.write("Math.ceil(-2.6) :-------" + Math.ceil(-2.6) + "<br>")//It will return -2
+ 
+ document.write("Math.round(2.6) :-------" + Math.round(2.6) + "<br>")//It will return 3
+ document.write("Math.round(-2.6) :-------" + Math.round(-2.6) + "<br>")//It will return -3
+ 
+ document.write("Math.trunc(-2.6) :-------" + Math.trunc(2.6) + "<br>")//It will return 2
+ document.write("Math.trunc(-2.6) :-------" + Math.trunc(-2.6) + "<br>")//It will return -2
+ 
+ //we have 1.2345 and want to round it to 2 digits, getting only 1.23.
+ var num = 1.2345;
+ document.write("Math.floor(num * 100)/100 :------- " + Math.floor(num * 100)/100 + "<br>");//It will return 1.23
+ 
+ //toFixed(n)
+ var num = 1.568;
+ document.write("num.toFixed(2) :------- " + num.toFixed(1) + "<br>");//It will return 1.6
+ document.write("num.toFixed(2) :------- " + num.toFixed(2) + "<br>");//It will return 1.57
+ document.write("num.toFixed(2) :------- " + num.toFixed(5) + "<br>");//It will return 1.56800
+ 
+//***********************************************
+
+//Internally, numbers are represented in 64-bit, where 52-bit are store the position in digits, 11-bits are store the postion
+//in decimal and 1-bit for sign. 
+//if the number is to big, which overflow 64-bits then is an infinite.
+ document.write("72e500 :------- " + 72e500 + "<br>");//It will return 1.6//It will return Infinity.
+ 
+ //( 0.1 + 0.2 == 0.3 ); // false
+ document.write("0.1+0.2 :-------" + (0.1+0.2) + "<br>");//It will return 0.30000000000000004
+ document.write("(0.1+0.2) === 0.3 :-------" + (0.1+0.2 === 0.3) + "<br>");//It will return false
+ //solution of above statement..
+ // 1). toFixed()
+ var num = (0.1+0.2);
+ document.write("(num.toFixed(2)) :-------" + (num.toFixed(2)) + "<br>");//It will return 0.30
+ document.write("(+num.toFixed(2)) :-------" + (+num.toFixed(2)) + "<br>");//It will return 0.3
+ //now (0.1+0.2) === 0.3
+ document.write("(+num.toFixed(2) === 0.3) :-------" + (+num.toFixed(2) === 0.3) + "<br>");//It will return true
+ document.write("(+(0.1+0.2).toFixed(2) === 0.3) :-------" + (+(0.1+0.2).toFixed(2) === 0.3) + "<br>");//It will return true
+ // 2).turn number into integer.
+ 
+ document.write("(0.1 * 10 + 0.2 * 10)/10 === 0.3) :-------" + ((0.1 * 10 + 0.2 * 10)/10 === 0.3) + "<br>");//It will return true
+ 
+ //***************************************************
+ 
+//isFinite() --- It will convert the argument in number and return true.
+//isNaN() ------ It will return true if the argument is number.
+ document.write("isNaN('ss') :-------------"+ isNaN("ss") + "<br>")//It will return true
+ 
+ document.write("isFinite('ss') :-------------"+ isFinite("ss") + "<br>")//It will return false
+ document.write("isFinite('ss') :-------------"+ isFinite(123) + "<br>")//It will return true;
+ 
+ //var mobile = prompt("Your mobile number please :" , 0);
+  //alert(isFinite(mobile));//It will return true if it is number otherwise it is false.
+  
+  //***************************************************
+  
+  //parseInt()--- return the integer in a givrn string like "125px"
+  //parseFloat()--- return the integer in a givrn string like "12.5px"
+ document.write("parseInt('123px') :-------------"+ parseInt('123px') + "<br>")//It will return 123
+ document.write("parseInt('123px') :-------------"+ parseInt('12.3px') + "<br>")//It will return 12
+ document.write("parseInt('123px') :-------------"+ parseFloat('12.3px') + "<br>")//It will return 12.3
+ document.write("parseInt('123px') :-------------"+ parseFloat('s12.3px') + "<br>")//It will return NaN
+ 
+ //The second argument of parseInt(str, radix)
+ 
+ var num = 123456;
+ var short_num = num.toString(36);//2n9c
+ document.write(" parseInt(short_num, 36) :---------" +parseInt(short_num, 36) + "<br>");
+ 
+ //****************************************************
+ //Math.random() -------- return the number 0-1 randomly
+ //Math.max(a,b,c) ----- return max num
+ //Math.pow(n,power) ---- 2 in the power 
+ 
+  document.write("Math.random() :-------------"+ Math.random() + "<br>")
+  document.write("Math.max(2,5,-21,55,56) :-------------"+ Math.max(2,5,-21,55,56) + "<br>")//return 56
+  document.write("Math.pow(2, 3) :-------------"+ Math.pow(2, 3) + "<br>")//return 8
+  
+  //*********************************************************
+  
+  //Some Question and solutions
+  //1).Create a script that prompts the visitor to enter two numbers and then shows their sum.
+  
+	 /* var a = +prompt("Number of a" , 0)
+	  var b = +prompt("Number of b" , 0)
+	  
+	  alert("The sub of a and b = " + (a+b));
+	  */
+	  
+  //2). Why 6.35.toFixed(1) == 6.3? it should be 6.4
+  
+  var num = 6.35;
+  var num1 = 1.35
+  var num_fix = num.toFixed(20);//it will return 6.34999999999999964473   (6.34) --- 6.3
+  var num_fix1 = num1.toFixed(20);//it will return 1.35000000000000008882  (6.35) --- 1.4
+  
+  var to_fix = ((num * 10)).toFixed(1);//it will return 63.50
+  var final_tofix = (Math.round(to_fix)/10);
+  document.write("6.35.toFixed(1) :-------" +final_tofix + "<br>")
+  
+  // 3). Create a function readNumber which prompts for a number until the visitor enters a valid numeric value.
+  //     The resulting value must be returned as a number.
+ 
+  function readNumber(){
+   var val;
+    do{
+	 val = prompt("number only", 0);
+	}while(isFinite(val) == false){
+	 if(val == null || val == " ")
+	 return null;
+	 val++;
+	}
+  }
+  //readNumber();
+  
+//************************************************************
+//The built-in function Math.random() creates a random value from 0 to 1 (not including 1).
+//Write the function random(min, max) to generate a random floating-point number from min to max (not including max).
+ function rand_max_min(min,max){
+  return (min) + Math.random() * (max - min);//(max-min) not including the max. 
+ }
+ document.write(rand_max_min(1,5) + "<br>");
+ 
+ //***********************************************************
+//Create a function randomInteger(min, max) that generates a random integer number from min to max including both min and max as
+//possible values.
+//Any number from the interval min..max must appear with the same probability.
+ function randomInteger(min,max){
+  var ran_num = min + Math.random() * (max + 1 - min);
+   return Math.floor(ran_num);
+ }
+ document.write(randomInteger(1,5));
+ 
+
+
+
+
+
+ 
+ 
+</script>
+</body>
+</html>
