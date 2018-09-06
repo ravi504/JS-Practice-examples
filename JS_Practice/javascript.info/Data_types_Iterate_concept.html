@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<title>Iterate Concept</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Iterate Concept" + "</i>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+var range = {
+ from : 1,
+ to : 5
+};
+
+/*for (var rang of range){
+ alert(rang);//It will an error 'range is not iterable'
+}*/
+
+//So we use Symbol.Itetator
+
+range[Symbol.iterator] = function(){
+ return {
+  current : this.from,
+  last : this.to,
+  next(){ // next() have the form {done : boolean, value: any}, here if done is 'false' it will start iteration.If done is true means that iteration is finished.
+   if (this.current <= this.last){
+    return{
+	 done : false,
+	 value : this.current++
+	};
+   }else{
+    return {
+	 done : true
+	 };
+   }
+  }
+ };
+};
+
+for (let num of range){
+ document.write("range :" + num + "<br>");
+}
+ // In this above code range itself does not have next() method. Instead of another object is so called iterator by [Symbol.iterator]()
+ 
+ // now the range itself as iterator.
+ 
+ var range1 = {
+  from : 1,
+  to : 5,
+  [Symbol.iterator](){
+   this.current = this.from;
+   return this;
+  },
+  next(){
+   if (this.current <= this.to){
+    return {
+	 done : false,
+	 value : this.current++
+	};
+   }else{
+    return {
+	 done : true
+	};
+   }
+  }
+ };
+ 
+ for (var val of range1){
+  document.write("range1 : " + val + "<br>");
+ }
+ //*********************************************************************************
+ 
+ //String is iterabel
+
+ var name = "jack";
+ for (var nam of name){
+  document.write(nam + "<br>");
+ }
+ 
+//We’ll iterate over a string the same way as for..of, but with direct calls. This code gets a string iterator and calls it “manually”: 
+
+ var name1 = "ANGLE";
+ 
+ var obj = name1[Symbol.iterator]();
+  while(true){
+   var result = obj.next();
+    if (result.done) break;
+	document.write(result.value + "<br>")
+  }
+ 
+ //***********************************************************************************
+ 
+ //iterabel and array-likes.
+ 
+ var arr = {
+  0 : "hi",
+  1 : "jack",
+  length : 2
+ }
+/*for (var ar of arr){
+ alert(ar);//it will return "arr is not iterable". bec this is not an array, ofcouse this array-like having index and length. 
+}*/
+
+//So we have to convert it an array using (Array.from) and than we use the array functionality (pop, push ect.)
+
+var arry = Array.from(arr);
+arry[2] = 'ok';
+for (var ar of arry){
+  document.write(ar + "<br>");// It will print hi,jack,ok
+}
+
+var rang = Array.from(range);
+document.write(rang + "<br>")//Same for range as above mention. It will print 1,2,3,4,5
+
+//**************************************************************************************
+
+//the full syntax of Array.from(arr[, mapFn, thisArg]). Here mapFn is a function of each element and thisArg is for this for it.
+
+var mul = Array.from(range, num => num * num);
+document.write(mul + "<br>");//It will print 1,4,9,16,25
+
+var arrr = "ADM";
+var arr1 = [];//array.from() internaly does the same loop.
+for (var ar1 of arrr){
+ arr1.push(ar1);
+ 
+}
+document.write(arr1 + "<br>");
+
+//We can even build surrogate-aware slice on it:
+
+function slic(arr, first, last){
+ return Array.from(arr).slice(first,last).join('');
+}
+
+var strr = "APPLE";
+var str = '𩷶😂𩷶'
+document.write(slic(str,1,3) + "<br>");//return PP
+//native method does not support surrogate pairs
+document.write(str.slice(1,3) + "<br>"); // garbage (two pieces from different surrogate pairs)
+
+
+
+
+
+ 
+ 
+ 
+</script>
+</body>
+</html>

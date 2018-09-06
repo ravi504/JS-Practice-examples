@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<title>Map, Set, WeakSet, WeakMap</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Destructuring assignment" + "</i>" + " " +  "<a href='http://javascript.info/destructuring-assignment'>Destructuring assignment</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+//Destructuring assignment : this is a special syntax that allows "unpack" array and object in variable. Also use it in function.
+
+var arr = ['jack','willam'];
+var [firstname,lastname] = arr;
+document.write(firstname + " " + lastname + "<br>");// It will print jack willam
+
+//************************************************************
+// we can also write with 'split' this.
+
+var [fname,lname] = "jam smith".split(" ");
+document.write(fname + " " + lname + "<br>") //It will print jam smith
+
+//************************************************************
+//If we ignore first element than..
+
+var [,,title] = ['jack','willam','jam','peter','kim'];
+document.write(title + "<br>");//It will prit jam, others are  skipped.
+
+//************************************************************
+//So we can use ...(tripel dot).
+var [,,...others] = ['jack','willam','jam','peter','kim'];//[,,others['jam','peter','kim']];
+document.write(others[1] + "<br>"); 
+
+//************************************************************ 
+//assign anything to left side. var[left] = [right]; 
+var obj = {};
+[obj.fname, obj.lname] = "jimmy matron".split(" "); 
+ document.write(obj.fname + " " + obj.lname + "<br>");//it will print jimmy matron.
+
+//************************************************************ 
+//looping with entries().
+//First we use Object.entries() this will return key and value of an object.
+
+var user = {
+ name : "jack",
+ place : "UK"
+}
+//loop over key and value.
+for (var [key, value] of Object.entries(user)){
+ document.write(`${key} : ${value}` + "<br>");//it will print name : jack , place : uk
+} 
+//************************************************************
+//second we use entries() when we have the value through map.
+
+var map = new Map();
+map.set('firstname', 'kimmy').set('lastname', 'peterson');
+
+for (var [key, value] of map.entries()){
+  document.write(`${key} : ${value}` + "<br>");
+}
+
+//************************************************************ 
+//default value.
+
+var [name] = [];
+document.write(name + ' blank or undefined' + '<br>')//it will print nothing.
+
+//************************************************************
+//we can use = to assing the value. 
+var [name = "jimmy"] = ["willson"];
+document.write(name + '<br>')//it will print willson. 
+
+//************************************************************ 
+// now we can use prompt() function where the value is not defined.
+	/*var [fname = prompt("fname?"), lname = prompt("lname")] = ["jack"];//here promt("lname") the lname.
+	document.write(fname + lname + "<br>");// then it will print jack lname
+	*/
+	
+//************************************************************ 
+//object destruction also work with object. 
+ 
+ var obj = {
+  name : 'john',
+  place : "UK",
+  gender : "male"
+ }
+ var {name,place,gender} = obj;
+ document.write(name + " live in " + place + ". gender is " + gender + "<br>");
+
+//************************************************************ 
+//we can also assign propertie name to another name with the help of :(colon).
+var obbj = {
+ width : 200,
+ height : 300
+}
+ var {width : w, height : h} = obbj;
+ document.write((w + h) + "<br>");//it will print 500.
+
+//************************************************************ 
+ //missing properties can set default value using =
+var obbj1 = {
+ width : 200,
+}
+ var {width : w, height : h = 800} = obbj1;
+ document.write((w + h) + "<br>");//it will print 1000.
+
+var obbj2 = {
+ width : 200,
+}
+
+//************************************************************ 
+//using prompt() function to ask to fill missing value. 
+	 /*var {width = prompt("width"), height = prompt("height")} = obbj2;
+	 document.write( height + "<br>");//it will print whatever the user enter.
+	 */
+
+//************************************************************	 
+//if without var	
+var name,place;
+
+	/*{name,place} = {name : "jack", place : "uk"};//without var 
+	document.write(name + "<br>")//it will print "Unexpected token =" 
+	*/	 
+//we can put this in ().	 
+({name,place} = {name : "jack", place : "uk"});//without var 
+document.write(name + "<br>")//it will print jack.
+
+//************************************************************	 
+//Nested destructuring
+var obj = {
+ size : {width : 200},
+ item : ['cake'],
+ extra : true //this one is not destruction.
+}
+var {size : {width}, item : [item], title = "birthday party"} = obj;
+document.write( title + " " + item + " width is " + width + "<br>");// it will print "birthday party cake width is 200"	 
+
+//************************************************************
+//function parameters.
+var objj = {
+ name : "jack",
+ house : "pent house"
+}
+function houseArea({name = "jim", house = "pent", size : s = 2550}){
+ document.write(name + " " + house + " area is " + s + " squar feet")
+}
+houseArea(objj);//it will print "jack pent house area is 2550squar feet"
+ 
+ document.write("<br>");
+
+//without (objj) 
+function houseAreas({name = "jim", house = "pent", size : s = 2550} = {}){
+ document.write(name + " " + house + " area is " + s + " sq.ft" + "<br>")
+}
+houseAreas();//it will print "jack pent house area is 2550 sq ft"
+
+//*******************TASK**************************TASK********************TASK**************************TASK********************
+
+/*
+ Write the destructuring assignment that reads:
+1.name property into the variable name.
+2.years property into the variable age.
+3.isAdmin property into the variable isAdmin (false if absent)
+*/
+	 
+var user = {
+ name : "jack",
+ years : 30,
+ isAdmin : false
+}
+
+var {name, years, isAdmin} = user;
+document.write(name + " age is " + years + ". isAdmin : " + isAdmin + "<br>" );
+
+
+
+
+
+
+
+
+
+
+	 
+	 
+	 
+</script>
+</body>
+</html>

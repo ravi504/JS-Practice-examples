@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+<title>Array datatype</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Array Methods Tasks" + "</i>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+ //Tasks.
+ //1). Write the function camelize(str) that changes dash-separated words like “my-short-string” into camel-cased “myShortString”.
+ 
+  function camelize(str){
+   var sep_val = str.split("-");
+   var cam_cas = sep_val.map((item,index) => index == 0 ? item : item[0].toUpperCase() + item.slice(1));
+   var val = cam_cas.join("");
+   return val;
+  }
+ document.write(camelize("my-place") + "<br>");
+ 
+ //** we can also write above function like this.
+ 
+ function cameliz_e(str){
+  return str.split("-").map((item,index) => index == 0 ? item : item[0].toUpperCase() + item.slice(1)).join("");
+ }
+ 
+ document.write(cameliz_e("hello-bro-whatsup") + "<br>");
+ 
+ //*****************************************************************
+ 
+ //2).Write a function filterRange(arr, a, b) that gets an array arr,looks for elements between a and b in it and returns 
+ //an array of them. The function should not modify the array. It should return the new array.
+ 
+  function filterRange(arr, a,b){
+   return arr.filter(item => (a <= item && item <= b));
+  }
+  var ar_r =  [1,2,5,8,3,9,4];
+ document.write(filterRange(ar_r ,2,9) + "<br>");
+ 
+ //********************************************************************
+ 
+ //3).Write a function filterRangeInPlace(arr, a, b) that gets an array arr and removes from it all values except those that
+ // are between a and b. The test is: a ≤ arr[i] ≤ b.
+ 
+ function filterRangeInPlace(arr,a,b){
+  for (var i = 0; i < arr.length; i++){
+   var val = arr[i];
+    if (val < a || val > b){
+	 arr.splice(i,1);
+	 //i--;
+	}
+  }
+ }
+ 
+ filterRangeInPlace(ar_r , 2,6);
+ document.write(ar_r + "<br>");//It will print 2,5,3,4
+ 
+ //*******************************************************************
+ 
+ //4). We have an array of strings arr. We’d like to have a sorted copy of it, but keep arr unmodified.
+ //    Create a function copySorted(arr) that returns such a copy.
+ 
+ function copySorted(arr){
+  return arr.slice().sort();
+ }
+ var arr_1 = ['zabc','jack','pam'];
+ 
+ var rev = copySorted(arr_1);
+ document.write(rev + "<br>");
+ document.write(arr_1 + "<br>");
+//**********************************************************************
+
+//You have an array of user objects, each one has user.name. Write the code that converts it into an array of names.
+
+var jac = [{name: 'jack', id : 01}];
+var ann = [{name: 'anny', id : 02}];
+var jimm = [{name: 'jimmy', id : 03}];
+
+var joi_n = jac.concat(ann,jimm); 
+//alert(joi_n);
+var names = joi_n.map(user => user.name);
+document.write(names + "<br>");
+//we can also write like this..
+
+var jac = {name: 'jack001', id : 01};
+var ann = {name: 'anny002', id : 02};
+var jimm = {name: 'jimmy003', id : 03};
+
+var arr = [jac,ann,jimm];
+var names = arr.map(item => item.name);
+document.write(names + "<br>");
+
+//**************************************************************************
+
+//You have an array of user objects, each one has name, surname and id.
+//Write the code to create another array from it,of objects with id and fullName,where fullName is generated from name and surname.
+ 
+ var jac = {fname: 'jack',lname : 'willam',  id : 01};
+var ann = {fname: 'anny',lname : 'peterson', id : 02};
+var jimm = {fname: 'jimmy',lname : 'samwell', id : 03};
+ 
+ var arr = [jac,ann,jimm];
+ var new_arr = arr.map(index => ({
+  fullname : `${index.fname} ${index.lname}`,
+  id : index.id
+ }));
+ document.write('Fullname :' + new_arr[0].fullname + " / id :" + new_arr[0].id + "<br>" ); 
+ 
+ //*************************************************************************
+ 
+ //Write the function sortByName(users) that gets an array of objects with property name and sorts it.
+ 
+  function sortByName(users){
+   users.sort((a,b)=>(a.fname > b.fname));
+   //It will return -1 first one goes second, 1 second one goes first. 0 if both are same, then it compare second letter of both same one.
+  }
+ 
+ var jac = {fname: 'jack',lname : 'willam',  id : 01};
+var ann = {fname: 'Anny',lname : 'peterson', id : 02};
+var jimm = {fname: 'jimmy',lname : 'samwell', id : 03};
+ 
+ var user = [jac,ann,jimm];
+ sortByName(user);
+ document.write(user[2].fname + "<br>");
+ 
+ //*******************************************************************************
+ 
+ //Write the function shuffle(array) that shuffles (randomly reorders) elements of the array.
+ 
+ function shuffle(array){
+  array.sort(() => Math.random() - 0.5);
+ }
+ var arr = [1,2,3];
+ shuffle(arr);
+ document.write(arr + "<br>");
+ 
+ //IF we shuffle 1000000 times, than..
+ function shuffle1(array){
+  array.sort(() => Math.random() - 0.5);
+ }
+ 
+ var count = {
+  '123': 0,
+  '132': 0,
+  '213': 0,
+  '231': 0,
+  '321': 0,
+  '312': 0
+ }
+ 
+ for(var i = 0; i < 10; i++){
+  var arr = [1,2,3];
+  shuffle1(arr);
+  count[arr.join('')]++;
+ }
+ 
+ for (var key in count){
+  document.write(`${key}: ${count[key]}` + '<br>');
+ }
+ document.write("<hr>");
+ //Idea of fish-yates shuffle. The idea to walk an array in reverse order and swap each element in random one before it.
+ //performance-wise the Fisher-Yates algorithm is much better, there’s no “sorting” overhead.
+  function shuffle2(array){
+   for (var i = array.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+	[array[i], array[j]] = [array[j], array[i]];//swap element
+   }
+  }
+ 
+ var count = {
+  '123': 0,
+  '132': 0,
+  '213': 0,
+  '231': 0,
+  '321': 0,
+  '312': 0
+ }
+ 
+ for (var i = 0; i < 100; i++){
+  var arr = [1,2,3];
+  shuffle2(arr);
+  count[arr.join('')]++;
+ }
+ 
+ for (var key in count){
+  document.write(`${key} : ${count[key]}` + "<br>")
+ }
+ 
+ //*******************************************************************************
+ 
+ //Write the function getAverageAge(users) that gets an array of objects with property age and gets the average.
+ 
+ function getAverageAge(users){
+  var age = users.map(item => item.age);
+  var len = users.length;
+  var avg = (age)
+  var text = 0;
+   for (var i = 0; i < age.length; i++){
+    text +=  age[i]/len;
+	}
+  document.write(" Average :" + text.toFixed(2) + "<br>");
+ }
+ var jac = {name: 'jack001', age : 20};
+var ann = {name: 'anny002', age : 52};
+var jimm = {name: 'jimmy003', age : 25};
+
+var user = [jac,ann,jimm]; 
+ getAverageAge(user)
+
+// We can use reduce method.
+
+function getAverageAges(user){
+ return (user.reduce((value,current) => value + current.age, 0)/user.length).toFixed(2);
+} 
+ 
+ var jac = {name: 'jack001', age : 20};
+var ann = {name: 'anny002', age : 52};
+var jimm = {name: 'jimmy003', age : 25};
+
+var arr = [jac,ann,jimm];
+document.write(" Average :" + getAverageAges(arr) + "<br>");
+
+//**************************************************************************************
+
+//Create a function unique(arr) that should return an array with unique items of arr.
+
+function unique(arr){
+ var result = [];
+  for (var val of arr){
+   if(result.includes(val) == false){
+    result.push(val);
+   };
+  };
+  return result;
+};
+
+var names = ["Hare", "Krishna", "Hare", "Krishna", "Krishna", "Krishna", "Hare", "Hare", ":-O"];
+document.write(unique(names) + "<br>");
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>

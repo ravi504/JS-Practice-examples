@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<title>Map, Set, WeakSet, WeakMap</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Map, Set, WeakSet, WeakMap Concept" + "</i>" + " " +  "<a href='http://javascript.info/map-set-weakmap-weakset'>Map, Set, WeakSet, WeakMap</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+//Map is a collection of keys data just like a object key. The only different is map keys are any type.
+//Map methods are (new Map(), set(key.value), get(key), has(key), delete(key)-remove the value of key, size and clear()-clear the map)
+
+var map = new Map();
+map.set('jack','string');
+map.set(123, 'number');
+map.set(true, 'boolean');
+var mp = map.get(123);
+var del = map.delete(true);
+document.write(mp + "<br>");// it will return number
+document.write(del + "<br>");// it will return true
+document.write(map.size + "<br>");// it will return 2
+
+//*************************************************************
+
+//Map is also use object as a key
+
+var obj = {name : "jack"};
+
+var map = new Map();
+map.set(obj,123);
+document.write(map.get(obj) + "<br>");//it will print 123
+
+//In the old times, before Map existed, people added unique identifiers to objects for that:
+
+var objj = {name : "jack", id : 01}
+var obj_id = {};
+obj_id[objj.id] = 122;
+document.write(obj_id[objj.id] + "<br>");//it will print 122
+
+//************************************************************
+//Map actually use algorithm "SameValueZero" or ===
+
+//Map chaining. map.set return map itself
+var newSet = new Map();
+newSet.set("name","kim").set(123,"id").set(true,"bollean");
+document.write(newSet.get("name") + "<br>");//it will print kim
+
+//****************************************************************
+
+//Map form Object
+
+var mapp = new Map(Object.entries({
+ name : "jack",
+ place : "UK"
+}));
+
+for(var val of mapp){
+ document.write(val + "<br>")//it will print name,jack place,UK
+}
+
+//Now Itearation over map by
+//map.keys(),map.values(),map.entries()
+
+var mpp = new Map([
+ ['Apple',250],
+ ['Rice',25],
+ ['capsicum',55]
+]);
+
+for (var val of mpp.keys()){
+ document.write(val + '<br>');//it will print Apple,Rice,capsicum
+}
+for (var val1 of mpp.values()){
+ document.write(val1 + '<br>');//it will print 250,25,55
+}
+for (var vall of mpp.entries()){
+ document.write(vall + '<br>');//it will print Apple 250, Rice 25, capsicum 55
+}
+
+
+//Map has built in forEach method
+
+mpp.forEach((value,key) => {
+ document.write(`${key} : ${value}` + "<br>")//it will print Apple : 250, Rice : 25, capsicum : 55
+})
+
+//*************************************************************
+
+ //Set. set is a collection of single values, without any duplicate value. Each value may occur only once.
+ //set methods are : new.set(), set.add(value), set.delete(value), set.has(value), set.clear(), set.size
+ 
+ //For example, we have visitors coming, and we’d like to remember everyone. But repeated visits should not lead to duplicates. A visitor must be “counted” only once.
+ //Set is just the right thing for that:
+ 
+ var jack = {name : "jack"};
+ var pam = {name : "Pam"};
+ var sam = {name : "Sam"};
+ 
+ var n_set = new Set();
+ n_set.add(jack);
+ n_set.add(pam);
+ n_set.add(jack);
+ n_set.add(sam);
+ n_set.add(sam);
+ 
+ document.write(n_set.size + "<br>");//It will print 3
+ for (var val of n_set){
+  document.write(val.name + "<br>");//It will print jack sam pam
+ }
+ 
+ //******************************************************************
+ 
+ //iteration over set
+ //Either we can use for of loop or forEach 
+
+ var new_set = new Set(['jack','jim','andy']);
+  for (var ne of new_set){
+   document.write("for of loop : " + ne + "<br>");
+  } 
+ new_set.forEach((value, valueAgain, set)=>{
+  document.write("forEach : " + value + "<br>");//Here both value and valueAgain are same.
+ });
+ //In forEach there are 3 arguments (value, valueAgain, set). For compatibility with map forEach has three arguments 
+ //set have same methods for itearation set.keys(),set.values(),set.entries()
+ 
+ //*************************************************************************
+ 
+ //WeakSet - weakset is a special kind of set which does't prevent javascript to remove its item form memory.
+ //WeakMap - Same as map.
+ //In javascript garbagecollection value is store in memory.
+
+ var john = {name : 'john'};
+ john = null;//overwrite the reference. object will be remove from the list.
+ 
+ //In Map. it does not matter the object is store as a key or value . It will keep the memory, if there is no more reference to it.
+ var john = {place : 'UK'}
+ var m_ap = new Map();
+  m_ap.set(john);
+  john = null;//overwrite the reference
+  //john is store inside the map
+  //we can get it by map.keys()
+  for(var m of m_ap.keys()){
+   document.write(m.place + "<br>")//it will print UK.
+  }
+  
+  //*****************************************************************************
+  
+  //Let start WeakMap
+  //key must be object. no primitive values.
+  
+  var we_map = new WeakMap();
+  var arr = {};
+  we_map.set(arr, "ok");
+  
+  //we_map.set('place', "uk");// it will occur error "Invalid value used as weak map key"
+  //now we overwrite the reference to null
+  //WeakMap does not support map.keys(), value(), entries().
+  //WeakMap is use weakmap.get(value), weakmap.set(key,value), weakmap.delete(key,value),weakMap.has(key)
+  
+ var jack = {place : "london"};
+ var wema_p = new WeakMap();
+ wema_p.set(jack,12);
+  jack = null;//without this it will print 12, otherwise undefined.
+  document.write(wema_p.get(jack) + "<br>")
+  
+  //For instance, we have code that keeps a visit count for each user. The information is stored in a map: a user is the key
+  //and the visit count is the value. When a user leaves, we don’t want to store his visit count anymore.
+  
+ var jim = {place : "IND"};
+ 
+ var map_ob = new Map();
+ map_ob.set(jim,123);
+ jim = null;//overwrite the reference here
+ //we need to clean it but it's in the map.
+ document.write(map_ob.size  + "<br>");
+ //it's also in the memory, bec map use it as a key.
+ 
+ //so we use WeakMap to remove it automatically
+ var jimmy = {name : "jim"}
+ var weak_map = new WeakMap();
+ weak_map.set(jimmy,124);
+ jimmy = null;
+ document.write(weak_map.size  + "<br>");//Now it print undefined.
+ 
+ //**********************************************************************
+ 
+ //WeakSet behace similarly. Key must be object, not perimitive values.
+ //an object is exists in the set, while it has reachable from somewhere else.
+ //like set it has support has(), delete() and add(), but size(), keys() and no iterations.
+ 
+ //For instance, we can use it to keep track of whether an item is checked:
+  var message = [
+   {msg : "hi", from : john},
+   {msg : "how ar you", from : jimmy},
+   {msg : "fine", from : john}
+  ];
+  
+  var unreadset = new WeakSet(message);
+  
+  document.write(unreadset.has(message[1]));
+  document.write(unreadset.delete(message[1]));
+  message.shift();
+  document.write(unreadset.has(message[1]));
+  //************************************************************************
+  document.write("<hr>" +"***************************" );
+  document.write("Task" + "********************" );
+  
+  //Task 1 >	Create a function unique(arr) that should return an array with unique items of arr.
+  
+  function unique(arr){
+   var uniq_arr = [];
+    for (var val of arr){
+	 if(uniq_arr.includes(val) == false){
+	  uniq_arr.push(val);
+	 }
+	}
+	return uniq_arr;
+  }
+  
+  var arr = ["Hare", "Krishna", "Hare", "Krishna", "Krishna", "Krishna", "Hare", "Hare", ":-O"];
+  document.write(unique(arr) + "<br>");
+  
+  //******************************************************************************
+  
+  /*Anagrams are words that have the same number of same letters, but in different order.
+   Write a function aclean(arr) that returns an array cleaned from anagrams.
+   
+   For instance:
+      let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+      alert( aclean(arr) ); // "nap,teachers,ear" or "PAN,cheaters,era"
+  */
+  function aclean(arr){
+	
+  }
+  
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>

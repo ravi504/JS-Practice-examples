@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<title>Array datatype</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Array Methods Concept" + "</i>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+ //                         *****splice method *********
+
+ var arr = ["I", "am", "jack"];
+ delete arr[1];
+ document.write(arr + "<br>");
+ document.write(arr.length + "<br>");//Print 3. arr[1] is deleted but length of arr is 3, bec. it remove a value by the key.
+ // So to fix this problem we use splice method.
+ // arr.splice(index[, deleteCount, elem1...elemN]) 
+  arr.splice(1,1);
+  document.write(arr + "<br>");
+  document.write(arr.length + "<br>");//Not it print arr length of 2.
+  
+  //Now we can delete the content and then add new content.
+  arr.splice(0,1,"Hi","How are you");
+  document.write(arr + "<br>");//It will print Hi, How are you, jack
+ 
+  //Now the print the delete value, like this..
+  var del = arr.splice(0,2);
+  document.write(del + "<br>");//it will print Hi, How are you.
+  
+  //****************************************************************
+  
+  //                         *****slice Method ********
+ //          This is smillar to splice but it have 2 arrguments (start,end). end is not included.
+
+ var arr1 = "Hello";
+ var arr2 = ['A','P','P','L','E'];
+ 
+ document.write(arr1.slice() + "<br>");
+ document.write(arr1.slice(0,4) + "<br>");//It will print Hell 
+ document.write(arr2.slice(1,3) + "<br>"); //IT will print P,P
+ document.write(arr2.slice(-3) + "<br>"); //IT will print P,L,E
+ 
+ //*****************************************************************
+ 
+ //************concat Method ***********
+ 
+  var arr_co = [1,2];
+  document.write(arr_co.concat([3,4],[5,6]) + "<br>");//It will print 1,2,3,4,5,6
+  
+  //Symbol.isConcatSpreadable property. This is a property we have to display the value of array/object at the given length.
+  
+  var num = [1,2];
+  var obj = {
+   0:"jack",
+   1:"UK",
+   length : 1
+  }
+ document.write(num.concat(obj) + "<br>");//It will print 1,2[object,object]. Value are not added.
+ //to fix this issue..
+ 
+ var objj = {
+  0: "jack",
+  1 : "uk",
+  [Symbol.isConcatSpreadable] : true,
+  length : 2
+ }
+ document.write(num.concat(objj) + "<br>");//It will print 1,2,jack,uk. now the Value are added. 
+ //Without giving length value cannot be display.
+
+//*********************************************************************
+//                       Searcing an array.
+//                    indexOf() and includes()
+
+ var val =['one','ten','hundred','thousand', NaN];
+ var val_fin = val.indexOf('ten');
+ document.write(val_fin + "<br>");// It will print pos 1.
+ document.write(val.includes("one") + "<br>");// It will print true.
+ 
+ //if we search NaN in an array. indexOf is not found the value(NaN). It will return -1. But we use includes will search and return true.
+ document.write(val.indexOf(NaN) + "<br>");// It will print -1.
+ document.write(val.includes(NaN) + "<br>");// It will print true.
+ 
+ //***********************************************************************
+ //                             find and findIndex.
+ //      syntax --- var val = arr.find(function(item,index,array)) where  item = Element, index = index and array = array.
+ 
+ var newarr = [
+  {id: 1, name: "jack"},
+  {id: 2, name: "tim"},
+  {id: 3, name: "kom"}
+ ];
+ 
+ var find_arr = newarr.find(item => item.name == "tim");
+ document.write(find_arr.id + "<br>");//It will print 2
+ 
+ var find_arr_pos = newarr.findIndex(item => item.id == 1);
+ document.write(find_arr_pos + "<br>")//It will print 0
+ 
+ //**********************************************************************
+ //       filter method -- this is similar to find method, only differrence is it will search many values.
+ //            syntax ---- var filte_r = arr.filter(function(item,index,array))
+ 
+ var newarr1 = [
+  {id: 1, name: "jack"},
+  {id: 2, name: "pam"},
+  {id: 3, name: "kim"},
+  {id: 4, name: "sam"}
+ ];
+ 
+ var filter_arr = newarr1.filter(item => item.id < 4 );
+ document.write(filter_arr.length + "<br>");//It will print 3
+ 
+ //**********************************************************************
+ 
+ //                    TRANSFORM AN ARRAY
+ //    map - It call each element and returns the array of results.
+ //      syntax -- var map_len = arr.map(function(item,index,array))
+
+ var name_arr = [
+  {id: 1, name: "jack"},
+  {id: 2, name: "pam"},
+  {id: 3, name: "kim"},
+  {id: 4, name: "sam"}
+ ];
+ 
+ var elem_len = name_arr.map(item => item.name.length);
+ document.write(elem_len + "<br>");//It will print 4,3,3,3 length of each name element.
+ 
+ var elem_lenn = name_arr.map(item => item.name = "jack");
+ document.write(elem_lenn.length + "<br>");//It will print 4 length of jack.
+ 
+ //************************************************************************
+ 
+ //                             sort()
+ 
+ var va_arr = [1,2,15];
+ va_arr.sort();
+ document.write(va_arr + "<br>")
+ //It will return 1,15,2. Strange here 15 is less than 2, bec it will convert in string and then compare.
+ //to fix this issue. We can use sort(fn)
+ //1).
+  function compArray(a,b){
+   if(a > b) return 1;
+   if(a == b) return 0;
+   if(a < b) return -1;
+  }
+  
+  va_arr.sort(compArray);
+  document.write(va_arr + "<br>");//Now it will print 1,2,15.
+  
+  //2).
+  
+  va_arr.sort(function(a,b){return a - b});
+  document.write(va_arr + "<br>");//Now it will print 1,2,15.
+ 
+  //3). this one is prefered better to use. array function is better.
+  
+  va_arr.sort(( a, b ) => a - b);
+  document.write(va_arr + "<br>");//Now it will print 1,2,15.
+ 
+ //****************************************************************************
+ 
+//reverse method
+ var num = [2,4,9,3,1];
+ num.reverse();
+ document.write(num + "<br>");//Now it will print 1,3,9,4,2.
+ 
+ //******************************************************************************
+ 
+ //                                   split and join
+ 
+ var text_name = 'jack,jill,pam';
+ var text = text_name.split(",");
+  for (var tex of text){
+   //document.write(`hi <i> ${tex} </i> <br>`);
+   document.write("hi " + tex + "<br>");
+  };
+ 
+ var text_names = ['jack','jill','andy'];
+ var text_join = text_names.join("--");
+  document.write(text_join + "<br>");//jack--jill--andy.
+
+ var nam = "jacky";
+ var s_nam = nam.split("");
+ var j_nam = s_nam.join("<\>");
+ document.write(j_nam.toUpperCase() + "<br>");//Now it will JACK <> JILL <> ANDY. 
+ 
+ //****************************************************************************************
+ //                              reduce and reduceRight
+ //     syntax ---- var value  = arr.reduce(function(previousValue,item,index,array){},initial).
+ //      Here previousValue is result of previous function call and initaial for the first call.
+ 
+ var arr = [1,2,3,4];
+ var arr_sum = arr.reduce((sum, current) => sum + current, 0);
+ document.write(arr_sum + "<br>");// It will print 10.
+ 
+ // here the first run, sum is the initial value is 0 and current is the first array element 1.
+ // here the second run, sum is the initial value is 1 and current is the first array element 2.
+ // goes on...
+ 
+ //if we can omit the intial value 0 then sum will take first array element.
+ 
+ //If array is empty [] then..
+ 
+ var arrr = [];
+ var res = arrr.reduce((sum, current) => sum + current,0);//so add 0 for initial
+ document.write(res + "<br>");// It will occur an error message "Reduce of empty array with no initial value".
+ 
+ //*********************************************************************************************
+ 
+ //                                               forEach
+ 
+ var for_arr = ['jack', 'Adam'];
+ //for_arr.forEach(alert);//it will alert both jack and Adam
+
+ //let see the item, index and array.
+ 
+ for_arr.forEach((item,index,array) => {
+  document.write(item + " index no. is : " + index + " and Array is : " + array + "<br>");
+ })
+ //It will print jack index no. is :0 and Array is : jack,Adam 
+ //It will print Adam index no. is :1 and Array is : jack,Adam
+ 
+ //***********************************************************************************************
+ 
+ //                                Array.isArray
+  document.write(typeof({}) + '<br>');//It will print object
+  document.write(typeof([]) + '<br>');//It will print object
+ //array [] typeof is an object. But it's not true. It is an array. So to fix this issue we use Array.isArray.
+ 
+  document.write(Array.isArray([]) + '<br>');//It will print true.
+  document.write(Array.isArray({}) + '<br>');//It will print false.
+  
+ //                                   thisArg 
+ //       thisArg parameter become this for function.
+ //   syntax --- arr.find(func, thisArg);
+ //   syntax --- arr.map(func, thisArg);
+ //   syntax --- arr.filter(func, thisArg);
+ 
+ var user = {
+  age : 15,
+  validate(value){
+   return value.age < this.age;
+  }
+ }
+ var users = [
+  {age : 12},
+  {age : 16},
+  {age : 19},
+  {age : 10}
+ ];
+ 
+ var valid = users.filter(user.validate, user);//if we omit 2nd parameter. It will return 0 value.
+ document.write(valid.length + "<br>");//It will return 2 
+ 
+ //********************************************************************************************************
+ 
+ 
+</script>
+</body>
+</html>

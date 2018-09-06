@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<title>Array datatype</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Array Data Concept" + "</i>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+
+var person = ['jack','jill','pam'];
+
+document.write(" Hello " +person[0] + "<br>");//It will print jack
+
+person.push('sam');//It will add sam 
+person[person.length] = 'Willson'//It will add willson
+
+document.write(" Hello " +person[3] + "<br>");//It will print sam
+document.write(" Hello " +person[4] + "<br>");//It will print willson
+
+person.pop();
+
+document.write('Now the last one is :' + person[4] + "<br>");//It will print undefined bec. last one is pop(delete.)
+
+person.unshift('andy');//add the andy at beggining
+
+document.write('Now the last one is :' + person[4] + "<br>");//It will print undefined bec. last one is pop(delete.)
+
+ document.write("****************************" + "<br>")
+
+for(var i = 1; i < person.length; i++ ){
+ document.write('for loop :' + person[i] + "<br>");
+} 
+
+document.write("****************************" + "<br>")
+
+for(var per of person){
+ document.write('for of loop :' + per + "<br>");
+} 
+
+document.write("****************************" + "<br>")
+
+//Array is an object or behave like an object.
+
+var fruits = [];
+var fruits_ref = fruits;// reference of fruits
+ fruits_ref[0] = "Apple";
+document.write(fruits[0] + "<br>"); //Apple
+ fruits.push("Banana");
+document.write(fruits[1] + "<br>"); //Banana
+
+//About the length
+
+var arr = [];
+ arr[150] = "jack";
+ document.write(arr.length + "<br>"); //It will print 151.
+ 
+ var arr1 = [1,2,3,4,5]
+ document.write(arr1.length + "<br>");//It will print 5
+ arr1.length = 3;
+ document.write(arr1.length + "<br>");//It will print 3 
+ document.write(arr1[3] + "<br>");//It will print Undefined 
+ document.write(arr1[1] + "<br>");//It will print 2 
+ 
+ //new Array()
+ 
+ var new_arr = new Array("ABC","ABCD");
+ document.write(new_arr[1] + "<br>"); //It will print ABCD
+ 
+ var new_arr1 = new Array(2);
+ document.write(new_arr1[0] + "<br>");//It will print undefined 
+ document.write(new_arr1.length + "<br>");//It will print 2
+
+ //Multidimentional array
+
+ var multi_arr = [
+    [1,2,3],
+	[4,5,6],
+	[7,8,9]
+   ] 
+document.write(multi_arr[1][1]+ "<br>"); //It will print 5
+document.write((multi_arr[1][1] + multi_arr[2][1])+ "<br>"); //It will print 13
+
+ //toString.
+ var str_arr = [1,2,3]
+ document.write((String(str_arr) === '1,2,3') + "<br>");  //It will print true.
+ 
+ document.write(typeof([]+1) + "<br>"); //It will print string, due to toString [] become an empty string.
+ document.write(([]+1) + "<br>"); //It will print '1', due to toString [1] become an empty string.
+ document.write(([11]+1) + "<br>"); //It will print '111', due to roString [11] become an '1'
+ document.write(([121]+2) + "<br>"); //It will print '1212' due to toString [121] become an '11'
+ //Array do not have Symbol.toPrimitive or neither a valble ValueOf. Array only implement toString.
+
+ //**************************************************************************************
+ 
+ /*Let’s try 5 array operations.
+
+1.Create an array styles with items “Jazz” and “Blues”.
+2.Append “Rock-n-Roll” to the end.
+3.Replace the value in the middle by “Classics”. Your code for finding the middle value should work for any arrays with odd length.
+4.Strip off the first value of the array and show it.
+5.Prepend Rap and Reggae to the array.
+ */
+ var aarr = ["Jazz","Blues","asa"];
+  aarr.push("Rock-n-Roll");
+  //aarr[1] = "Classics";
+  aarr[Math.floor((aarr.length -1)/2)] = "Classics";
+  aarr.shift();
+  aarr.unshift("Rap","Reggae");
+  document.write(aarr + "<br>");
+
+  //************************************************************************************
+  
+  var arr = ['a','b'];
+  arr.push(function(){
+   document.write(this + "<br>");
+   });
+  arr[2]();//It will print a,b,function(){ document.write(this); }
+
+ //*************************************************************************************
+
+ /*
+ Write the function sumInput() that:
+
+1.Asks the user for values using prompt and stores the values in the array.
+2.Finishes asking when the user enters a non-numeric value, an empty string, or presses “Cancel”.
+3.Calculates and returns the sum of array items.
+ */
+
+function sumInput(){
+ var numbers = [];
+ 
+ while(true){
+  var value = prompt("enter the number", 0);
+  
+  if(value === "" || value === null || !isFinite(value)) break;
+   numbers.push(+value);
+ }
+  var sum = 0;
+  for(var number of numbers){
+   sum += number;
+  }
+  return sum;
+}
+//document.write(sumInput());
+ 
+ /*
+ The input is an array of numbers, e.g. arr = [1, -2, 3, 4, -9, 6].
+
+The task is: find the contiguous subarray of arr with the maximal sum of items.
+
+Write the function getMaxSubSum(arr) that will find return that sum.
+ */
+ 
+ function getMaxSubSum(arr){
+  var maxval = 0;
+  var sumval = 0; 
+  
+   for(var val of arr){
+    sumval += val;
+	maxval = Math.max(maxval, sumval);
+		if(sumval < 0) sumval = 0;
+   }
+   return maxval;
+ }
+ 
+ document.write( getMaxSubSum([-1, -2, -3 ,5]) + "<br>" )
+ document.write( getMaxSubSum([100, -9, 2, -3, 5]))
+ 
+ 
+
+ 
+</script>
+</body>
+</html>

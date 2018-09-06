@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<title>JSON</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"JSON" + "</i>" + " " +  "<a href='http://javascript.info/json'>JSON</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+//JSON is Javascript Object Notation.
+//JSON.stringify - this is an method to convert object to string.
+
+var clss = {
+ name : "jack",
+ s_class : 12,
+ place : "uk"
+}
+var clss_json = JSON.stringify(clss);
+document.write(clss_json + "<br>");
+
+//some JavaScript-specific object properties are skipped by JSON.stringify.
+/*
+	Function properties (methods).
+	Symbolic properties.
+	Properties that store undefined.
+*/
+var clss = {
+ clss_fun(){alert(12)},
+ [Symbol("id")] : 123, 
+ place : undefined
+}
+
+document.write(JSON.stringify(clss) + "<br>");//It will return {}.
+
+//************************************
+//nested object is supported and converted to string
+
+var schoo = {
+ cls : {
+  name : "jim",
+  clss : 11
+ },
+ name : "DPS"
+}
+
+document.write(JSON.stringify(schoo) + "<br>");
+
+//************************************
+//The important limitation: there must be no circular limitaions.
+var room = {
+ number : 24
+}
+
+var meeting = {
+ title : "confrence",
+ name : ["jack","pam"]
+}
+meeting.place = room;
+room.occupied = meeting;
+document.write("JSON.stringify(meeting) occuer an Error :" + "<b>" + "Uncaught TypeError: Converting circular structure to JSON" + "</b>" + "<br>")
+
+//***********************************
+//full syntax of JSON.stringify(value[, replacer, space])
+//here value is the object.
+//here replacer is for mapping function(key,value).
+//here space is use for formating.
+
+//Most of the times first argument is use. We can used second argument when filter out circular reference as above example.
+
+var room = {
+ number : 25
+}
+var meeting = {
+ title : "confrence",
+ person : [{name:"jack",role : "UI Dev"},{name:"Adam", role : "JS Dev"}],
+ place : room
+}
+room.occupied = meeting;
+var json = JSON.stringify(meeting,['title','person']);
+document.write(json + "<br>");//{"title":"confrence","person":[{},{}]} here perone is empty because name is not in the list.
+
+var json1 = JSON.stringify(meeting,['title','person','name','role','place','number']);
+document.write(json1 + "<br>")//output is mention below
+//{"title":"confrence","person":[{"name":"jack","role":"UI Dev"},{"name":"Adam","role":"JS Dev"}],"place":{"number":25}}
+
+// now we can use function instead of array[]
+var json3 = JSON.stringify(meeting, function replacer(key,value){
+ document.write("-------" + `${key} ${value}` + "<br>");
+ return (key == 'occupied' ? undefined : value);
+})
+
+//*********************************
+//Now we can use space argument.
+
+var stu_name = {
+ name : "jack",
+ place : "UK",
+ pin : 021,
+ cls : 12
+}
+var jsson = JSON.stringify(stu_name, null, 2);
+//alert(jsson);
+document.write(jsson +"<br>");
+
+//***********************************
+//Custom toJSON - it will use for conversion JSON. Like toString is for conversion to string.
+
+var room ={
+ number : 26,
+ date : new Date(2018,8,5),
+ toJSON(){
+  return this.number
+ }
+ 
+}
+var meeting = {
+ title : "confrence",
+ name : "jack",
+ room
+}
+document.write(JSON.stringify(room) + "<br>");//output is 26 here date is converted into string. Direct call to number with toJSON
+document.write(JSON.stringify(meeting) + "<br>");//output is {"title":"confrence","name":"jack","room":26}. number 26 call through nested.
+//toJSON is uesed direct call or nested object call both.
+
+//****************************************
+//JSON.parse - It will de-code the JSON string.
+//syntax JSON.parse(str[, reviver]) here str is string and reviver is function(key,value)
+
+var number = [1,2,3,4,{name:"jack", place:"UK"}];
+var str = JSON.stringify(number)
+var num = JSON.parse(str);
+document.write(num[4].name + " live in " + num[4].place + "<br>")//return jack live in UK.
+
+//now using function reviver(key,value)
+
+var meeting = {
+ date : "2018,8,5"
+}
+
+var string = JSON.stringify(meeting);
+var prs = JSON.parse(string);
+document.write("prs.getMonth()----" + "<b>" + " prs.getMonth is not a function" + "</b>" + "<br>");
+//here occur an error prs.getMonth is not a function
+
+var meet = '{"date":"2017-11-30T12:00:00.000Z"}';
+
+var fun = JSON.parse(meet,function(key,value){
+ if(key == 'date')
+  return new Date(value);
+  return value;
+ });
+
+document.write(fun.date.getFullYear() + "<br>");
+
+//********************************************
+var dat = {
+ date : new Date(2018,8,5)
+}
+
+var daat = JSON.stringify(dat);
+var prs = JSON.parse(daat,function(key,value){
+ if(key == 'date')
+ return new Date(value);
+ return value;
+})
+document.write(prs.date.getFullYear() + "<br>");
+
+//************************************************
+//************Task*****************
+
+//1). Turn the user into JSON and then read it back into another variable.
+
+var obj = {
+ name : "jack",
+ place : "USA"
+}
+
+var json = JSON.stringify(obj);
+var read = JSON.parse(json)
+document.write(read.name + " live in " + read.place + "<br>")
+
+//************************************
+/*
+2).In simple cases of circular references, we can exclude an offending property from serialization by its name.
+   But sometimes there are many backreferences. And names may be used both in circular references and normal properties.
+   Write replacer function to stringify everything, but remove properties that reference meetup:
+*/
+ var room = {number : 25}
+ var meetup = {
+  title : "confrence",
+  occupiedBy : [{name:"jack"},{name:"PAM"}],
+  place : room
+ }
+room.occupiedBy = meetup;
+meetup.self = meetup;
+
+var res =(JSON.stringify(meetup,function replacer(key,value){
+ return ((key != "" && value == meetup) ? undefined : value);
+ 
+}));
+document.write(res + "<br>")//{"title":"confrence","occupiedBy":[{"name":"jack"},{"name":"PAM"}],"place":{"number":25}}
+
+
+
+
+
+
+
+	
+</script>
+</body>
+</html>

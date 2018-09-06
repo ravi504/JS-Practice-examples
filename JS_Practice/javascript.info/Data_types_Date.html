@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<title>Date types</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Date types" + "</i>" + " " +  "<a href='http://javascript.info/date'>Date types</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+//new Date();
+var newdate = new Date();
+document.write(newdate + "<br>");
+
+//***********************************
+//new Date(milliseconds); 1/1000.
+var earlydate = new Date(0);//0 mean 01.01.1970 UTC+0
+document.write(earlydate + "<br>");
+
+var earlyNextdate = new Date(24 * 3600 * 1000);
+document.write(earlyNextdate + "<br>");
+
+//***********************************
+//new Date(dateString);
+var newstrdate = new Date("01-01-1970");//Here string is parse by date.parse();
+document.write(newstrdate + "<br>");
+
+//new Date(year, month, date, hours, min, sec, ,ms );
+var nedate = new Date(2005,5,4,12,30,25,0);
+document.write("I use to win football at : " + nedate + "<br>");
+//**********************************
+//Access date components.
+
+var date = new Date();
+document.write("getFullYear() : " + date.getFullYear() + "<br>"); 
+document.write("getMonth() : " + date.getMonth() + "<br>"); 
+document.write("getDate() : " + date.getDate() + "<br>"); 
+document.write("getHours() : " + date.getHours() + "<br>"); 
+document.write("getMinutes() : " + date.getMinutes() + "<br>"); 
+document.write("getSeconds() : " + date.getSeconds() + "<br>"); 
+document.write("getMilliseconds() : " + date.getMilliseconds() + "<br>"); 
+document.write("getDay() : " + date.getDay() + "<br>"); 
+
+//**********************************
+//getUTC
+
+var da = new Date();
+document.write("In India : " + da.getHours() + "<br>");	 
+document.write("In UK : " + da.getUTCHours() + "<br>");	 
+
+//getTimezoneOffset() this is use for difference between localtime zone and UTCtime zone in minutes.
+document.write("Number of minutes between Ind & UK timezone : " + da.getTimezoneOffset() + "<br>");
+
+//*********************************
+/*
+Setting date components
+The following methods allow to set date/time components:
+
+setFullYear(year [, month, date])
+setMonth(month [, date])
+setDate(date)
+setHours(hour [, min, sec, ms])
+setMinutes(min [, sec, ms])
+setSeconds(sec [, ms])
+setMilliseconds(ms)
+setTime(milliseconds) (sets the whole date by milliseconds since 01.01.1970 UTC)
+*/
+var today = new Date();
+today.setHours(0);
+document.write(today + "<br>");
+
+today.setHours(0,0,0,0);
+document.write(today + "<br>");
+
+//***********************************
+//autocorrection - auto adjust itself.
+
+var tod = new Date(2016,0,33);
+document.write("autocorrection: - " + tod + "<br>");
+
+//let we need to increase the date by 1.
+
+var dat = new Date(2020,1,28);
+dat.setDate(dat.getDate() + 1);
+document.write("increase by 2 " + dat + "<br>");//It will print "Fri Mar 01 2019" if (2019) and Sat Feb 29 2020 if (2020).
+
+//let get the date 70 sec after now.
+var nowdat = new Date();
+nowdat.setSeconds(nowdat.getSeconds() + 70);
+document.write("70 second after now : " + nowdat + "<br>");
+
+//we can also set 0 or negative 
+var daat = new Date(2016,0,2);
+daat.setDate(1)
+document.write("setDate(1) :" + daat + "<br>")//it will print "Fri Jan 01 2016"
+daat.setDate(0)
+document.write("setDate(0) :" + daat + "<br>")//it will print "Thu Dec 31 2015"
+
+//*************************************
+//date to number and date diff
+var da = new Date();
+document.write(+da + "<br>");//return in milliseconds. same as date.getTime();
+
+//date can be subtract, the result in difference in milliseconds.
+var start = new Date();
+ for (var i=0; i<100000; i++){
+  var dosomething = i * i * i;
+ }
+ var end = new Date();
+ document.write("this for loop is run in : " + (end - start) + "ms" + "<br>");//this for loop is run in : 25ms
+ 
+ //******************************************
+ //Date.now() this is equivalent to new Date().getTime().
+ //it is mostly used for convenience or when proformance matters. like in game in javascript. 
+ var daa = Date.now();
+ document.write(daa + "<br>");
+ 
+var start = Date.now();
+ for (var i=0; i<100000; i++){
+  var dosomething = i * i * i;
+ }
+ var end = Date.now();
+ document.write("this for loop is run in : " + (end - start) + "ms" + "<br>");//this for loop is run in : 22ms
+ 
+ //***********************************************
+ /*
+  browser has performance.now() that gives the number of milliseconds from the start of page loading with 
+  microsecond precision (3 digits after the point):
+ */ 
+ document.write(performance.now() + "<br>");
+ // more than 3 digits after the decimal point are precision errors, but only the first 3 are correct
+ 
+ //**************************************************
+document.write("<hr>");
+ //********Task*********Task********Task***************
+ 
+ //1).Create a Date object for the date: Feb 20, 2012, 3:12am. The time zone is local.
+ 
+ var date = new Date(2012,1,20,3,12);
+ document.write(date + "<br>")
+ 
+ 
+ //*****************************************
+ //2).Write a function getWeekDay(date) to show the weekday in short format: ‘MO’, ‘TU’, ‘WE’, ‘TH’, ‘FR’, ‘SA’, ‘SU’.
+ 
+ function getWeekday(date){
+  var date = date.getDay();
+  var arr = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
+  document.write("Today is : " + arr[date -1] + "<br>");
+ }
+ var dat = new Date(2018,7,31);
+ getWeekday(dat);
+ 
+ //*****************************************
+ /*3).Create a function getDateAgo(date, days) to return the day of month days ago from the date.
+     For instance, if today is 20th, then getDateAgo(new Date(), 1) should be 19th and getDateAgo(new Date(), 2) should be 18th.
+ */
+
+ function getDateAgo(date, days){
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var days = date.getDate() - days;
+  var dayAgo = new Date(year,month,days);
+  document.write(dayAgo + "<br>");
+ }
+ var dat = new Date(2018,7,31);
+ getDateAgo(dat,1)
+ 
+   //*****OR*******
+ function getDateAgos(date,days){
+  var dayAgo = new Date(date);
+  dayAgo.setDate(dayAgo.getDate() - days)
+  document.write(dayAgo + "<br>");
+ }
+ var dat = new Date(2018,7,31);
+ getDateAgos(dat,2)
+ 
+ //*******************************************
+ /*
+  4).Write a function getLastDayOfMonth(year, month) that returns the last day of month. Sometimes it is 30th, 31st or even 28/29th
+  for Feb.
+	Parameters:
+	year – four-digits year, for instance 2012.
+	month – month, from 0 to 11.
+	For instance, getLastDayOfMonth(2012, 1) = 29 (leap year, Feb).
+ */
+ 
+ function getLastDayOfMonth(year, month){
+  var date = new Date(year,month + 1,0);// here 0 will go back the last month of last date.
+  
+  document.write("Last day of month is : " +date.getDate() + "<br>");
+ }
+ getLastDayOfMonth(2018,7);
+ 
+ //*******************************************
+ /*
+  5).Write a function getSecondsToday() that returns the number of seconds from the beginning of today.
+  For instance, if now 10:00 am, and there was no daylight savings shift, then:
+   getSecondsToday() == 36000 // (3600 * 10)
+ */
+ //To get the number of seconds, we can generate a date using the current day and time 00:00:00, then substract it from “now”.
+ //The difference is the number of milliseconds from the beginning of the day, that we should divide by 1000 to get seconds:
+ 
+ function getSecondsToday(){
+  var now = new Date();
+  var currDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var diff = now - currDate;//it will result 63657328 milliseconds
+  return Math.round(diff/1000)//it will result 63657 second.
+  //alert(diff/1000);
+  //document.write("Number of Seconds passaway : " + (now.getHours()) + " sec" + "<br>");//it will return only hours. not sec.
+ }
+ document.write("Number of Seconds passaway : " + getSecondsToday() + "<br>");
+ 
+    //*****OR*******
+	
+ function getSecondsTodays(){
+  var d = new Date();
+  return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+ }
+document.write("Number of Seconds passaway : " + getSecondsTodays() + "<br>");	 
+
+//********************************************
+//6). Create a function getSecondsToTomorrow() that returns the number of seconds till tomorrow.
+
+function getSecondsToTomorrow(){
+ var date = new Date();
+ <!-- var millsec = (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());//1561920 -->
+ <!-- var totalSecAday = 3600 * 24; -->
+ <!-- return totalSecAday - millsec; //20539 -->
+        //*****OR*******
+ var currdat = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1);
+ var diff = currdat - date;
+ return Math.round(diff/1000);//20599
+}
+document.write(getSecondsToTomorrow() + "<br>");
+
+//***************************************	
+
+/*
+ 7). Write a function formatDate(date) that should format date as follows:
+
+	If since date passed less than 1 second, then "right now".
+	Otherwise, if since date passed less than 1 minute, then "n sec. ago".
+	Otherwise, if less than an hour, then "m min. ago".
+	Otherwise, the full date in the format "DD.MM.YY HH:mm". That is: "day.month.year hours:minutes", all in 2-digit format, e.g. 31.12.16 10:00.
+	For instance:
+
+	alert( formatDate(new Date(new Date - 1)) ); // "right now"
+
+	alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+
+	alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+
+	// yesterday's date like 31.12.2016, 20:00
+	alert( formatDate(new Date(new Date - 86400 * 1000)) );
+*/
+
+var date = new Date(new Date() - 30 * 1000);
+ alert(date);
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</script>
+</body>
+</html>
