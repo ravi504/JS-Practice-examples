@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<title>OOP-property-accessors</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"OOP-property-accessors" + "</i>" + " " +  "<a href='http://javascript.info/property-accessors'>property-accessors</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+/*
+ There are two kinds of properties.
+ 1) Data properties : All properites we have using is an data properties.
+ 2) accessor properties : This a look like a function of getting and setting to set and get the value. look like regular properties from outside.
+ 
+*/
+let user1 = {
+ fname : "jack",
+ lname : "smith",
+ get fullname(){//fullname function to add both fname and lname.
+  return `${this.fname} ${this.lname}`;
+ }
+};
+document.write(user1.fullname + "<br>");//return jack smith
+
+//Now if we want to change or reassign the name like user1.fullname = "peter sons". 
+//same example above.
+
+let user2 = {
+ fname : "jack",
+ lname : "smith",
+ get fullname(){
+  return `${this.fname} ${this.lname}`;
+ },
+ set fullname(value){//here we update the name with the help of set function
+  [this.fname, this.lname] = value.split(" ");//here the value peter sons is split and updated on this,fname and this.lname.
+ }
+};
+user2.fullname = "peter sons";
+document.write(user2.fullname + "<br>");//return peter sons.
+
+//property can either be data-properites or asscessor-properites. But not both.
+
+//***************************************************************
+
+/*
+ Asscessor discriptors: discriptors asscessor are different as compare to data-properites.
+ for asscessor properites there are no value and writable. But istead there are get and set, so ther are some asscessor-properites.
+ .get : function without arguments, that work when property is read.
+ .set : function with arguments, that work when property is set.
+ .enumerable : if true, then we can looping, otherwise not.
+ .configurable : if true. then we can delete or modified, otherwise not.
+*/
+
+let user3 = {
+ fname : "adam",
+ lname : "willson"
+}
+
+Object.defineProperty(user3, "fullname", {
+ get() {
+  return `${this.fname} ${this.lname}`;
+ },
+ set(value) {
+  [this.fname, this.lname] = value.split(" ");
+ }
+});
+document.write(user3.fullname + "<br>");//return adam willson
+user3.fullname = "ram gopal";
+document.write(user3.fullname + "<br>");//return ram gopal
+
+//*******************************************************************
+// if we try to use get and value ,then occur an error.
+
+let user4 = {
+ fname : "adam",
+ lname : "willson"
+}
+
+Object.defineProperty(user4,'fullname',{
+get(){
+ return `${this.fname} ${this.lname}`;
+},
+ //value : "smith willson"//Cannot both specify accessors and a value or writable attribute,
+});
+document.write(user4.fullname + "<br>");
+/*
+above example occure an error:
+Invalid property descriptor. Cannot both specify accessors and a value or writable attribute, #<Object>
+*/
+
+//********************************************************************
+//Smarter getter and setter.
+/*
+Both getter and setter can be used as wrapper prorperty value to gain more control over them.
+In below wxample. We can store name value in special property _name and then filter assignments in the setter.
+*/
+let user = {
+ get name(){
+  return this._name;
+ },
+ set name(value){
+  if(value.length < 4){
+   alert("name length too short! not less then 4 character. ");
+   return;
+  }
+  this._name = value;
+ }
+};
+user.name = "jack";
+document.write(user.name + "<br>");
+/*
+Technically the external still access name directly by using use._name.But the property start underscore "_" are internal 
+should not touch outside object.
+*/
+
+//***********************************************************************
+//using compatibilty.
+
+function use_r(name,birthday){
+ this.name = name;
+ this.birthday = birthday;
+ 
+ Object.defineProperty(this, "age", {
+  get(){
+  let fullyear = new Date().getFullYear();
+  return fullyear - this.birthday.getFullYear();
+  }
+ });
+}
+let jack = new use_r("jack", new Date(1986,02,04));
+let date = jack.birthday.getDate();
+let day = jack.birthday.getDay();
+let year = new Date().getFullYear();
+document.write(jack.name + " birthday is " + date + '/' + day + '/' + year + " and he trun " + jack.age + " year." + "<br>");
+
+
+ 
+ 
+</script>
+</body>
+</html>

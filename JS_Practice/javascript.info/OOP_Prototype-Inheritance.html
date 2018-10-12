@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<title>OOP-prototype-inheritance</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"OOP-prototype-inheritance" + "</i>" + " " +  "<a href='http://javascript.info/prototype-inheritance'>prototype-inheritance</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+/*
+ Prototype : It is a hidden property of object. which can be null or reference other object. That object is called Prototype.
+ Prototype Inheritance : When we want to read a property of object and it's missing, then property is automatically take
+ from prototype. such thing is called Prototype Inheritance.
+ 
+ We can use __proto__ . proto is not as same Prototype, That's a getter and setter for it.
+*/
+
+let animal = {
+ eat : true,
+}
+let rabbit = {
+ jump : true,
+}
+rabbit.__proto__ = animal;
+document.write(rabbit.eat + "<br>");
+//Here we can say that animal is prototype of rabbit, or rabbit is prototypally inherit from animal.
+
+//*************************************************************
+let animal1 = {
+ eat : true,
+ walk(){
+  document.write("animal1 walk");
+ }
+}
+let rabbit1 = {
+ jump : true,
+ __proto__:animal1,
+}
+rabbit1.walk();
+document.write("<br>");
+
+//**************************************************************
+//protopyte chain
+
+let animal2 = {
+ eat : true,
+ walk(){
+  document.write("animal2 is walk");
+ }
+}
+let rabbit2 = {
+ jump : true,
+ __proto__ : animal2,
+}
+let mammal = {
+ legs : 4,
+ __proto__ : rabbit2,
+}
+mammal.walk();
+document.write("<br>");
+document.write("Mammal can jump : " + mammal.jump + " and eat :" + mammal.eat + "<br>");
+
+/*
+There are two limitations.
+1) Reference cannot go in circle. JS will through an Error if we try to assign __proto__ in a circle.
+2) The value of __proto__ is either an null or an object.
+*/
+
+//***************************************************************
+/*
+Read and write rules.
+Prototype is only used for reading properties.
+For data-property write and delete work directly with object.
+*/
+
+let animal3 = {
+ eat : true,
+ walk(){}
+}
+let rabbit3 = {
+ jump : true,
+ __proto__ : animal3
+}
+rabbit3.walk = function(){
+ document.write("animal3 walk");
+}
+
+rabbit3.walk();
+document.write("<br>");
+
+//**************************************************************
+//setter and getter can write and read a property. They are looked up the prototype and invoked.
+
+let user = {
+ fname : "jack",
+ lname : "smith",
+ set fullname(value){
+  [this.fname, this.lname] = value.split(" ");
+ },
+ get fullname(){
+  return `${this.fname} ${this.lname}`;
+ },
+}
+
+let admin = {
+ rights : true,
+ __proto__ : user,
+}
+
+document.write(admin.fullname + "<br>");
+admin.fullname = "jams bond";
+document.write(admin.fullname + "<br>");
+
+//*************************************************************
+/*
+ 'this' value.
+ No matter where the method is found, an onbect or an prototype. In a method is call, 'this' is always the object before the dot.
+ 
+*/
+
+ let monkey = {
+  eat : "Banana",
+  walk(){
+   if (!this.jumpping){
+    document.write("jumpping");
+   }
+  },
+  jump(){
+   this.jumpping = true;
+  },
+ };
+ 
+ let rabb = {
+  __proto__ : monkey,
+ }
+ 
+ rabb.jump();
+ document.write(rabb.jumpping + "<br>");
+ document.write(monkey.jumpping + "<br>");
+ 
+ //*********************************************************
+ //*************Task************Task************Task************Task************
+ 
+ /*Task 1.
+ Use __proto__ to assign prototypes in a way that any property lookup will follow the path: pockets → bed → table → head.
+ For instance, pockets.pen should be 3 (found in table), and bed.glasses should be 1 (found in head).
+ */
+ let head = {
+  glass : 1,
+ }
+ let table = {
+ pen : 3,
+ __proto__ : head,
+ }
+ let bed = {
+  pillow : 2,
+  __proto__ : table,
+ }
+ let pockets = {
+  money : 2000,
+  __proto__ : bed,
+ }
+ 
+ document.write(pockets.pen + "<br>");//3
+ document.write(bed.glass + "<br>");//1
+ document.write(table.money + "<br>");//undefined. Reference cannot go in circle.
+ 
+ //***************************************************************
+ 
+ /*Task 2.
+ We have two hamsters: speedy and lazy inheriting from the general hamster object.
+ When we feed one of them, the other one is also full. Why? How to fix it?
+ */
+ let hamster = {
+  stomach : [],
+  eat(food){
+   this.stomach.push(food);
+   
+  },
+ };
+ let speedy = {
+  __proto__ : hamster,//inherit from the __proto__
+ }
+ let lazy = {
+  __proto__ : hamster,//inherit from the __proto__
+ }
+ 
+ speedy.eat("apple");
+ document.write(speedy.stomach + "<br>");//apple
+ document.write(lazy.stomach + "<br>");//apple
+
+//*************************Fixed******************************
+
+let hamster1 = {
+ stomach : [],
+ eat(food){
+  this.stomach = [food];
+ },
+}
+let speedy1 = {
+ __proto__ : hamster1,
+}
+let lazy1 = {
+ __proto1__ : hamster1,
+}
+speedy1.eat("Apple");
+document.write(speedy1.stomach + "<br>");//Apple
+document.write(lazy1.stomach + "<br>");//undefined and nothing
+
+//***********************OR***********************************
+ 
+let hamster2 = {
+ stomach : [],
+ eat(food){
+  this.stomach.push(food);
+ },
+}
+let speedy2 = {
+ __proto__ : hamster2,
+ stomach : [],
+}
+let lazy2 = {
+ __proto__ : hamster2,
+ stomach : [],
+}
+speedy2.eat("APPLE");
+document.write(speedy2.stomach + "<br>");//APPLE
+document.write(lazy2.stomach + "<br>");//undefined or nothing
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>

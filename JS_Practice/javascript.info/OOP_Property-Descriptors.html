@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<title>OOP-property-descriptors</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"OOP-property-descriptors" + "</i>" + " " +  "<a href='http://javascript.info/property-descriptors'>property-descriptors</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+/*
+ Object have key and value pairs. But Object property more complex.
+ Property flags: writable - if true it can be changed, otherwise not changed.
+				 enumerable - if ture then list is looping, otherwise not.
+				 configurable -	if ture, then it can be deleted or modified, otherwise not.
+
+	Syntax : Object.getOwnPropertyDescriptor(obj, proprety name);			 
+*/ 
+ let obj1 = {
+  name : "jack"
+ }
+ let descriptor1 = Object.getOwnPropertyDescriptor(obj1,'name');
+ document.write(JSON.stringify(descriptor1, null,2)+"<br>");
+ //It will return { "value": "jack", "writable": true, "enumerable": true, "configurable": true }
+
+//************************************************************ 
+ /* Now to change the flage we can use Object.defineProperty(obj, propertyname, descriptor)
+    here obj is the object,
+	propertyname is the object property, 
+	descriptor is if property not assign then it can assign property and value. 
+ */
+ let obj2 = {};//not defined any key and value.
+ Object.defineProperty(obj2, 'name',{
+  value : "john"
+ })
+ let descriptor2 = Object.getOwnPropertyDescriptor(obj2, 'name');
+ document.write(JSON.stringify(descriptor2, null,2)+"<br>")
+ //it will return { "value": "jack", "writable": true, "enumerable": true, "configurable": true }
+ //here all flages are false;
+
+//*********************************************************** 
+ //let see the effect of each flages.
+ //wirtable flag. if false.
+ 
+ let obj3 = {name : "jack"};
+ Object.defineProperty(obj3, "name", {
+ writable : false
+ });
+ obj3.name = "pam";//Occur an Error: Cannot assign to read only property 'name'.
+ document.write("Error: Cannot assign to read only property 'name'" + "<br>");
+ 
+//************************************************************
+//now same example above without any property.
+ let obj4 ={};
+ Object.defineProperty(obj4, "name", {
+  value : "Sam",
+  enumerable : true,
+  configurable : true
+ });
+ document.write(obj4.name + "<br>");//return sam
+ obj4.name = "ppam";//Error: Cannot assign to read only property 'name'
+ 
+ //***********************************************************
+ /*
+ now non-enumerable - not listed/looping.
+ Normally buitin toSting() is not looping in (for in) loop. if we can built custom then it can looping.
+ */
+ let obj5 = {
+  name : "jack",
+  toString(){
+   return this.name;
+  }
+ };
+for (key in obj5){
+ document.write(key + ",");//it will return name,toSting
+}
+ document.write("<br>");
+
+//now if we don't looping then we can set enumerable is false;
+
+Object.defineProperty(obj5, "toString", {
+ enumerable : false
+});
+
+for (key in obj5){
+ document.write(key)//now it will return only name.
+}
+document.write("<br>");
+
+//*****************************************************************
+//now non-configuable if it is false then nothing gona be changed.
+
+let obj = Object.getOwnPropertyDescriptor(Math, "PI")
+
+document.write(JSON.stringify(obj, null,2));
+document.write("<br>");
+//return { "value": 3.141592653589793, "writable": false, "enumerable": false, "configurable": false }
+// PI is non-configuable property. Cannot not be changed or delete. here return enumerable is false.
+
+//*****************************************************************
+/*
+Now making property to changed or non-configuable is in single road. We cannot change it back, because defineProperty does't work
+on non-configurable
+*/
+//'non-strict'
+let obj6 = {};
+Object.defineProperty(obj6, "name", {
+ value : "peter",
+ enumerable : false,
+ configurable : false
+});
+obj6.name = "sam";//Error 
+delete obj6.name;//Error
+
+Object.defineProperty(obj6, "name",{configuable : true});//Eror
+/*
+ Errors appear only in use strict
+ In the non-strict mode, no errors occur when writing to read-only properties and such. But the operation still won’t succeed. 
+ Flag-violating actions are just silently ignored in non-strict.
+*/
+
+//*****************************************************************
+//Object.defineProperties(obj,{}); We can use many properites.
+
+let obj7 ={};
+Object.defineProperties(obj7,{
+name : {value:"jack", writable:false},
+place : {value:"UK", writable:false}
+});
+
+//*****************************************************************
+//to get all properties onces we can use Object.getOwnPropertyDescriptors(obj,propertyname);
+let obj8 = {name:"jack",place:"uk"};
+let clone = Object.getOwnPropertyDescriptors(obj8);
+
+//Normally when we clone an object, then we assignment the copy of properities, like this.
+for(let val in obj8){
+ clone[val] = obj8[val];
+ document.write(clone[val] + " ,");
+}
+
+
+
+
+
+
+ 
+ 
+</script>
+</body>
+</html>

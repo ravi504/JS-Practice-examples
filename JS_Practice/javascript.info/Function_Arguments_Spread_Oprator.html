@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<title>Arguments and Spread Oprater</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Arguments and Spread Oprater" + "</i>" + " " +  "<a href='http://javascript.info/rest-parameters-spread-operator'>Arguments and Spread Oprater</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+//rest parameters 
+
+function summ(a,b){
+ return a + b;
+}
+
+document.write(summ(2,3,5,10,15) + "<br>");//return 5. It will take only first 2 arguments. rest arguments are not taking.
+
+
+//Here we can use ... dot in parameters. It will be an array which will taken all rest arguments.
+function sum(...args){
+ var sum = 0;
+ for (var num of args){
+  sum += num;
+ }
+  return sum;
+}
+document.write(sum(2,3,5,10,15) + "<br>");
+ 
+//Now first two arguments be an variable and rest are in an array.
+
+function employee(fname,lname,...details){
+ document.write(fname + " " + lname + " working as a " + details[0] + " and live in " + details[1] + "<br>");
+} 
+ employee("jack","willson","Developer","UK")
+ 
+//*******************************************************************
+//Arguments : Arguments are as Array-like and iterable, but it does't suppoert array methods.
+
+function people(){
+ document.write("hello " + arguments[0] + " " + arguments[1] + "<br>")
+} 
+ people("peter","smith");
+ 
+ //Arrow funtion does't have arguments.
+ //if we use arguments in arrow function, then it take outer normal function. like
+ 
+ function place(){
+  var show = () => document.write("I love to visit :" + arguments[0] + "<br>");
+  show();//here we call show () in outer side of function.
+ }
+ place("London");
+ 
+ //*****************************************************************
+ //spread opretor: It is look like rest parameters using ... dots, but does quite opposite.
+ 
+ document.write("Math.max(2,5,1,6) :" + Math.max(2,5,1,6) + "<br>");
+ 
+ //now what if we have an Array in parameteres.
+ var arr = [2,5,1,6];
+ document.write("Math.max(2,5,1,6) :" + Math.max(arr) + "<br>");//it will return NaN.
+ 
+ //for this case we can use spread oprator.
+ var arr = [2,5,1,6,8];
+ document.write("Math.max(2,5,1,6,8) :" + Math.max(...arr) + "<br>");//it will return 8.
+ 
+ //We can also pass multiple arrays.
+ var arr1 = [2,5,1,6,8];
+ var arr2 = [2,55,1,6,8];
+ 
+ document.write("Math.max() :" + Math.max(...arr1,...arr2) + "<br>");//it will return 55.
+ 
+ //we can combine array and normal values.
+ 
+ var arr1 = [2,5,1,6,8];
+ var arr2 = [2,55,1,6,8];
+ 
+ document.write("Math.max() :" + Math.max(2,5,...arr1,25,...arr2,85) + "<br>");//it will return 85.
+ 
+ //We can also mearge all array.
+ var arr1 = [1,5,8];
+ var arr2 = ["jack",true,12.5];
+ var mearge = [arr1,...arr2]
+ 
+ document.write(mearge + "<br>");
+ 
+ 
+ var name = "jack";
+ var nameArr = [...name];
+ document.write(nameArr + "<br>");// name sring is now an array.
+ 
+ //we can also use Array.from() to convert string to an array.
+ var name = "APPLE";
+ document.write(Array.from(name))
+ 
+ 
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<title>setTimeout and setInterval</title>
+<head>
+</head>
+<body>
+<div id="prog">num</div>
+<script>
+ document.write("<i>"+"setTimeout and setInterval" + "</i>" + " " +  "<a href='http://javascript.info/settimeout-setinterval'>setTimeout and setInterval</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+/*setTimeout : It allow to run a function once after the interval of time.
+ syntax : setTimeout(function|code,delay[arg1,arg2]).
+   Here : function and string of code to execute. 
+		: delay is before run in milliseconds(1000ms = 1s).
+		: arg is argument of the function. not supported in IE9.
+*/
+/*exmp1---
+	function sayHi(fname,lname){
+	 exmp1.innerHTML = "hello " + fname + " " + lname;
+	}
+	setTimeout(sayHi,3000,"jack","willam");
+*/
+//******************************************************
+//exmp2---
+ //setTimeout(() => exmp2.innerHTML = "Welcome",4000)
+ 
+//******************************************************** 
+/*for cancel we can use clearTimeout
+
+	let show = setTimeout(() => exmp3.innerHTML = "Boom !",4005);
+	clearTimeout(show);
+	let show_a = setTimeout(() => exmp3.innerHTML = "Clearout",4010);
+*/
+//********************************************************
+//setInterval : it run an function regularly with the interval beetween the run.
+/*syntax : setInterval(function,delay(arg1,arg1)) Preti much same as setTimeout.
+
+	let time_out = setInterval(() => exmp4.innerHTML ="Tick..",5000);
+
+	setTimeout(() => {clearInterval(time_out); exmp4.innerHTML = "Clear"},6000);
+*/
+/*recursive setTimeout
+
+	let setim_rec = setTimeout(function show(){
+	 exmp5.innerHTML = "change in few sconds...";
+	  setim_rec = setTimeout(show,7000);
+	  clearTimeout(setim_rec);
+	},8000);
+*/
+//************************************************************
+/*
+we need to write a service that sends a request to the server every 5 seconds asking for data, but in case the server is
+overloaded, it should increase the interval to 10, 20, 40 seconds…
+*/
+
+let delay = 1000;
+
+let timer_id = setTimeout(function request(){
+ // send request....
+  let status = "not full"
+ if(status == "full"){
+  delay *= 2;//increase the interval for next run
+  alert(delay);
+ }
+ timer_id = setTimeout(request,delay);
+},delay);
+
+//*********************************************************
+//setTimeout(func,0);
+//This scheduled the execusion a fun as soon as possible, But scheduler is invoked it arter the current code is complete.
+ /*
+	setTimeout(() => exmp6.innerHTML = "Bro !", 0);
+	let id = document.getElementById("exmp6");
+	function run(){
+	 alert("hello");
+	}
+	run();
+*/
+//**********************************************************
+//Splitting CPU-hungry tasks
+/*
+So we can split the long text into pieces. First 100 lines, then plan another 100 lines using setTimeout(...,0), and so on.
+
+For clarity, let’s take a simpler example for consideration. We have a function to count from 1 to 1000000000.
+
+If you run it, the CPU will hang. For server-side JS that’s clearly noticeable, and if you are running it in-browser, then try
+to click other buttons on the page – you’ll see that whole JavaScript actually is paused, no other actions work until it finishes.
+
+*/
+/*
+ //Here script take too long. Due to this javascript is paused untill script complete.
+let i = 0;
+let start = Date.now();
+
+function count(){
+ for (var j = 0; j < 1e9; j++){
+  i++;
+ }
+ alert("Completed in " + (Date.now() - start) + " ms");
+}
+count();
+*/
+//********************************************************************
+/*
+//let split the job using the nested setTimeout: Here javascript is continue working untill the script complete.
+
+let i = 0;
+let start = Date.now();
+
+function count(){
+ do{
+  i++;
+ }while( i % 1e6 != 0)
+ 
+ if(i == 1e9){
+  alert("Completed on " + (Date.now() - start) + " ms")
+ }else{
+  setTimeout(count,0);
+ }
+}
+count();
+*/
+
+//***********************************************************************
+/*Both the above function take much time. We need to improve the code and make it take less time.
+
+let i = 0;
+let start = Date.now();
+
+function count(){
+ 
+ if(i < 1e9 - 1e6){
+  setTimeout(count,0)
+ }
+ 
+ do{
+  i++;
+ }while(i % 1e6 != 0)
+ 
+ if (i == 1e9){
+  alert("completed at : " + (Date.now() - start));
+ }
+}
+
+count();
+*/
+
+//**************************************************************************
+/*
+Minimal delay of nested timers in-browser
+In the browser, there’s a limitation of how often nested timers can run. The HTML5 standard says: “after five nested timers,
+the interval is forced to be at least four milliseconds.”.
+
+Let’s demonstrate what it means with the example below. The setTimeout call in it re-schedules itself after 0ms. 
+Each call remembers the real time from the previous one in the times array. What do the real delays look like? 
+
+Let’s see:
+
+
+let start = Date.now();
+let time_arr = [];
+
+setTimeout(function delay(){
+ time_arr.push(Date.now() - start);
+ 
+ if (start + 100 < Date.now()){
+  alert(time_arr)
+  }else{
+  setTimeout(delay,0);
+  }
+},0)
+
+*/
+
+//************************************************************************
+/*Allowing browser to render/return 
+if we do a single huge function then even if it changes something, the changes are not reflected in the document till it finishes.
+*/
+/*
+var i = 0;
+
+ function count(){
+for (let j = 0; j < 1e4; j++){
+ i++;
+ 
+ prog.innerHTML = i;
+}
+}
+count();
+*/
+
+var i = 0;
+
+ function count(){
+  do{
+   i++;
+   prog.innerHTML = i;
+  }while(i % 1e2 != 0)
+  
+  if (i < 1e5){
+   setTimeout(count,0)
+  }else{
+   alert("Upload successfully !");
+  }
+}
+count();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+</script>
+<!-- <div id="prog">num</div> -->
+<div id="exmp1"></div>
+<div id="exmp2"></div>
+<div id="exmp3"></div>
+<div id="exmp4"></div>
+<div id="exmp5"></div>
+<div id="exmp6"></div>
+
+</body>
+</html>

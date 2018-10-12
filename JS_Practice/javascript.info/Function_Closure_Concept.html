@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<title>Closure function</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Closure function" + "</i>" + " " +  "<a href='http://javascript.info/closure'>Closure function</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+//closer : closer is a function which remember outer variable and access them. All functions in javascript are closer.
+
+
+let name = "jack";// this is globle lexical environment has name jack
+
+function n_ame(){
+ document.write("Hi " + name + "<br>");//Output is Pam, because it will look outside variable and take the value of that variable.
+}
+ name = "Pam";// now name has changed to Pam
+ n_ame();
+ 
+ //*****************************************************
+ 
+let phase = "hello ! " 
+ function nam_e(name){//global lexical environment have name = jack, when the function nam_e() call.
+  document.write(phase + name + "<br>");//here phase value is taken from ousite of the function and name is taken inside.
+ }
+ nam_e("jack");
+ 
+ //****************************************************
+ //Nested function : A function is created inside the function is know as Nested function.
+ //let see Constructor function with nested function.
+ function all_name(fname,lname){
+  this.fullname = function() {
+   document.write("hello " + fname + " " + lname)
+  };
+ }
+ let all_name_obj = new all_name("jack","smith" + "<br>");
+ all_name_obj.fullname();
+ 
+ //Returning a function.
+ 
+ function makeCount(){
+  let count = 0;
+   return function(){
+   return count++;
+   }
+  }
+ let makeCount_obj = makeCount();
+ document.write("makeCount : " + makeCount_obj() + "<br>");
+ document.write("makeCount : " +makeCount_obj() + "<br>");
+ document.write("makeCount : " +makeCount_obj() + "<br>");
+ 
+ //**************************************************************
+ //For every call to makeCounter() a new function Lexical Environment is created, with its own counter.
+ // So the resulting counter functions are independent.
+ function makeCount1(){
+  let count1 = 0;
+   return function(){
+    return count1++
+   };
+ }
+ 
+ let counter1 = makeCount1();
+ let counter2 = makeCount1();
+ 
+ document.write("makeCount1 : " + counter1() + "<br>");
+ document.write("makeCount1 : " + counter1() + "<br>");
+ document.write("makeCount1 : " + counter2() + "<br>");//restart count here. function are indepandent to resulting.
+ 
+ //*******************************************************************
+ //globel environment is also use in code block.
+ //let example if() block
+ 
+ let prase1 = "welcome";
+ 
+ if (true){
+  let name1 = "jack";
+  document.write(prase1 + " " + name1 + "<br>"); // return welcom jack.
+ }
+ //here occur an error because name1 is inner variable and not access outside.
+ document.write("name1 occur an error :" + "<b>" + "  name1 is not defined" + "</b>" + "<br>");
+ 
+ //let example for loop
+ 
+ for (let i=0; i<5; i++){
+ } 
+ document.write(" i occur :" + "<b>" + "  i is not defined" + "</b>" + "<br>")//not access outside.
+ 
+ //*****************************************************************
+ //IIFE (immediatly invoke function expression) 
+ /*
+ (function() {
+  document.write("function 1" + "<br>");
+})();
+
+(function() {
+  document.write("function 2" + "<br>");
+}());
+
++function() {
+  document.write("function 3" + "<br>");
+}();
+
+!function() {
+  document.write("function 4" + "<br>");
+}();
+ */
+ document.write("<hr>")
+
+ //************TASK**************TASK**************TASK**************TASK**************
+ //task)1. Are makecount_1 function Independent ?
+ //Yes makecount_1 are Independent. Each one has own count.
+ function makecount_1(){
+  let cont = 0;
+   return function(){
+    return cont++;
+   };
+ }
+ let cont1 = makecount_1();
+ let cont2 = makecount_1();
+ 
+ document.write("cont1 : " + cont1() + "<br>");
+ document.write("cont1 : " + cont1()+ "<br>");
+ document.write("cont2 : " + cont2() + "<br>");
+ document.write("cont2 : " + cont2() + "<br>");
+ 
+ 
+ //********************************************************
+ //Task)2. Write a constructor function to increment and decrement count UP() and Down() methods/function.
+ 
+ function makeCount_up_down(){
+  let con_t = 0;
+   this.up = function(){
+    return ++con_t;
+   };
+   this.down = function(){
+    return --con_t
+   };
+ }
+let con_t1 = new makeCount_up_down();//Constructor object 
+
+document.write("Press UP : " + con_t1.up() + "<br>");
+document.write("Press UP : " + con_t1.up() + "<br>");
+document.write("Press DOWN : " + con_t1.down() + "<br>");
+document.write("Press DOWN : " + con_t1.down() + "<br>");
+
+//**********************************************************************
+/*
+Write function sum that works like this: sum(a)(b) = a+b.
+Yes, exactly this way, via double brackets (not a mistype).
+
+For instance:
+sum(1)(2) = 3
+sum(5)(-1) = 4
+*/
+
+function sum(a){
+ return function(b){
+  return a+b;
+ }
+}
+
+document.write("sum(1)(2) : " + sum(1)(2) + "<br>");
+
+function summ(a){
+ return function(b){
+  return function(c){
+   return a+b+c;
+  }
+ }
+}
+
+document.write(" sum(5)(-1)(1) : " + summ(5)(-1)(1) + "<br>");
+
+//****************************************************************************
+/*
+We have a built-in method arr.filter(f) for arrays. It filters all elements through the function f. If it returns true, then that element is returned in the resulting array.
+Make a set of “ready to use” filters:
+
+inBetween(a, b) – between a and b or equal to them (inclusively).
+inArray([...]) – in the given array.
+The usage must be like this:
+
+arr.filter(inBetween(3,6)) – selects only values between 3 and 6.
+arr.filter(inArray([1,2,3])) – selects only elements matching with one of the members of [1,2,3].
+*/
+//inBetween function()
+function inBetween(a,b){
+ return function(x){
+  return x >= a && x <= b;//Here search the array value and return true.
+ }
+}
+
+let arr = [1,2,3,4,5,6,7];
+document.write(arr.filter(inBetween(2,6)) + "<br>");//return 2,3,4,5,6
+
+//inArray function()
+function inArray(arr){
+ return function(x){
+  return arr.includes(x);//Here search the array value and return true.
+ }
+}
+let arrr = [1,2,3,4,5,6,17]
+document.write(arrr.filter(inArray([1,2,17])) + "<br>");//Return 1,2,17
+
+let ar = ["jack","pam","Adm","shelly"];
+document.write(ar.filter(inArray(["jack"])) + "<br>");//Return 1,2,17
+
+//*********************************************
+//Sort by field. sort by name and age of a given object. using byField(name) or byField(age) function.
+
+let students = [
+ {name:"jack", age:20, lname:"smith"},
+ {name:"Adm", age:19, lname:"role"},
+ {name:"pam", age:22, lname:"willson"},
+ {name:"jam", age:23, lname:"willson"}
+]
+
+function byField(val){
+ return (a,b) => a[val] > b[val] ? 1 : -1;//jack > adam(true)1 adam > pam(false)0 pam > jam(true)1 
+ }
+
+students.sort(byField("name"));
+students.forEach(user => document.write(user.name + " / "));//return Adm / jack / jam / pam /
+document.write("<br>")
+students.sort(byField("age"));
+students.forEach(user => document.write(user.name + " / "));//return Adm / jack / jam / pam /
+document.write("<br>")
+
+//*************************************************
+//Army of functions
+
+function makeArmy(){
+ let shotters = [];
+ 
+ let i = 0;
+ while(i < 10){
+  let j = i;
+  let shotter = function(){
+   document.write(j)
+  };
+  shotters.push(shotter);
+ i++;
+ }
+ return shotters;
+}
+
+let make = makeArmy();
+make[6]();
+
+
+
+
+
+
+
+ 
+ 
+</script>
+</body>
+</html>

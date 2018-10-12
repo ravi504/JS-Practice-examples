@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<title>Function Recursion and Stack</title>
+<head>
+</head>
+<body>
+
+<script>
+ document.write("<i>"+"Function Recursion and Stack" + "</i>" + " " +  "<a href='http://javascript.info/recursion'>Function Recursion and Stack</a>" + "<br>");
+ document.write("<hr>");
+//************************************************************
+//calculate the power of number 
+ function pow(x,n){
+  var num = 1;
+  for (var i=0; i<n; i++){
+   num *= x;
+  }
+  return num;
+ }
+ document.write("pow(2,3) is :" + pow(2,3) + "<br>");
+ 
+ // now same calculation can be write in function recursion 
+ function poww(x,n){
+  if (n == 1){
+   return x;
+  }else{
+   return x * poww(x, n-1); 
+  }
+ }
+ document.write("pow(2,3) in recursion fun() is :" + poww(2,4) + "<br>")
+ 
+ //Now let’s say we want a function to get the sum of all salaries. How can we do that?
+ //let first take an array[]
+  var emp = [{name:"john", salary:1000},{name:"pam", salary:2000}]
+ 
+ 
+function sumSalary(dep){
+ if(Array.isArray(dep)){
+  return dep.reduce((prev,current) => prev + current.salary,0);
+ }
+} 
+ document.write(sumSalary(emp) + "<br>")
+ 
+ //now let take object inside an array[]
+ 
+ var employee = {
+  IT : [{name:"jack", salary:1000},{name:"peter", salary:2000}],
+  Devlopement : {
+   programmer : [{name:"jim",salary:4000}],
+   devloper : [{name:"adam", salary:5000},{name:"pam", salary:6000}]
+  }  
+ };
+ 
+ function totalSalary(empl){
+  if (Array.isArray(empl)){
+   return empl.reduce((current,result) => current + result.salary,0);
+  }else{
+   var total = 0;
+   for (var salValue of Object.values(empl)){
+    total += totalSalary(salValue);
+   }
+   return total;
+  }
+ }
+ 
+ document.write(totalSalary(employee) + "<br>");
+ 
+ var arr = {name:"jack",mol:123}
+ for(var aa of Object.values(employee)){
+  document.write(aa + "<br>")
+ }
+ //alert(typeof(val))
+ 
+ //***********************************************************
+ //*****************TASKS***********************TASKS***********************TASKS***********************TASKS***********************
+ 
+ /*
+ Task 1). Write a function sumTo(n) that calculates the sum of numbers 1 + 2 + ... + n.
+ For instance:
+	sumTo(1) = 1
+	sumTo(2) = 2 + 1 = 3
+	sumTo(3) = 3 + 2 + 1 = 6
+	sumTo(4) = 4 + 3 + 2 + 1 = 10
+	...
+	sumTo(100) = 100 + 99 + ... + 2 + 1 = 5050
+ */
+ //let try in for loop
+ function sumTo(n){
+  var sum = n;
+  for (var x=n-1; x > 0; x--){
+    sum +=x;
+  }
+  //document.write(val);
+  return sum;
+ } 
+ document.write(" sumTo(4) :" + sumTo(4) + "<br>");
+ 
+//now in recursion process
+
+function sumTo(n){
+ if(n == 1){
+  return n;
+ }else{
+  return n + sumTo(n - 1);
+ }
+} 
+ document.write(" sumTo(3) :" + sumTo(3) + "<br>")
+ 
+ //now using mathematical formula.
+ 
+ function sumTo(x){
+  return x * (x + 1)/2;
+ }
+ document.write(" sumTo(2) :" + sumTo(2) + "<br>")
+ 
+ //****************************************
+ /*
+ task 2). The factorial of a natural number is a number multiplied by "number minus one", then by "number minus two",
+ and so on till 1. The factorial of n is denoted as n!
+ 
+	1! = 1
+	2! = 2 * 1 = 2
+	3! = 3 * 2 * 1 = 6
+	4! = 4 * 3 * 2 * 1 = 24
+	5! = 5 * 4 * 3 * 2 * 1 = 120
+ */
+ 
+ function factorial(x){
+  return (x != 1) ? x * factorial(x - 1) : x;
+ }
+ document.write("factorial(5) :" + factorial(5) + "<br>");
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</script>
+</body>
+</html>
